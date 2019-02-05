@@ -1,4 +1,4 @@
-{% extends layout.html %}
+{% extends "layout.html" %}
 
 {% block content %}
 <div class="header bg-gradient-primary py-7 py-lg-8">
@@ -48,13 +48,7 @@
                       {{ form.password(placeholder = "Password",class = "form-control") }}
                   </div>
                 </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <!-- <input class="custom-control-input" id=" customCheckLogin" type="checkbox"> -->
-                  {{ form.rememberMe(class="custom-control-input",id=" customCheckLogin") }}
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <small class="text-muted">{{ form.rememberMe.label }}</small>
-                  </label>
-                </div>
+                
                 <div class="text-center">
                   {{ form.submit(class="btn btn-primary my-4") }}
                 </div>

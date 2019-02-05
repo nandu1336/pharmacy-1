@@ -9,8 +9,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class RegisterForm(FlaskForm):
-	firstname = StringField('Firstname', validators=[DataRequired()]) 
-	lasttname = StringField('Lastname', validators=[DataRequired()]) 
+	firstName = StringField('Firstname', validators=[DataRequired()]) 
+	lasttName = StringField('Lastname', validators=[DataRequired()]) 
 	email = StringField('Email', validators=[DataRequired(),Email()])
 	password = PasswordField('New Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
 	confirm  = PasswordField('Repeat Password')

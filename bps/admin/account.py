@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect,flash,url_for
-from bps.forms import LoginForm
+from bps.forms import LoginForm,RegisterForm
 
 Login = Blueprint('Login', __name__)
 Register = Blueprint('Register',__name__)
@@ -18,4 +18,4 @@ def register():
 	if form.validate_on_submit():
 		flash("you r successfully registered")
 		return redirect(url_for('dashboard'))
-	return render_template("login.html",title = 'Login',form = form)
+	return render_template("register.html",title = 'Register',form = form)
