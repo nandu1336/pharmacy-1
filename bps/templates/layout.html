@@ -24,6 +24,7 @@
 <body class="bg-default">
   <div class="main-content">
     <!-- Navbar -->
+	{% if title!="Dashboard" %}
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
         <a class="navbar-brand" href="{{ url_for('Home.index') }}">BHASKAR PHARMACY</a>
@@ -51,7 +52,7 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../index.html">
+              <a class="nav-link nav-link-icon" href="{{ url_for('Dashboard.dashboard') }}">
                 <i class="ni ni-planet"></i>
                 <span class="nav-link-inner--text">Dashboard</span>
               </a>
@@ -81,6 +82,7 @@
         </div>
       </div>
     </nav>
+	{% endif %}
 
 {% block content %}
 {% endblock content %}
