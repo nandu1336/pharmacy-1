@@ -41,7 +41,10 @@ Supplies = "CREATE TABLE supplies(PURCHASE_ID INT ,DISTRIBUTOR_ID VARCHAR(10) ,Q
 # --10. CREATING sells RELATION 
 Sells = "CREATE TABLE sells(DRUG_ID VARCHAR(10) ,PATIENT_ID INT(10) UNSIGNED ,SALE_ID VARCHAR(10) );"
 
-tableNames =[Drug,Purchase,Patient,SaleTransaction,DrugManufacturer,Distributor,Manufactures,Prescriptions,Supplies,Sells]
+# --11. CREATING admin TABLE
+Admin = "CREATE TABLE sells(EMPLOY_ID VARCHAR(10) ,FIRSTNAME VARCHAR(20) ,LASTNAME VARCHAR(20) ,EMAIL VARCHAR(50),PASSWORD_HASH CHAR(120) );"
+
+tableNames =[Drug,Purchase,Patient,SaleTransaction,DrugManufacturer,Distributor,Manufactures,Prescriptions,Supplies,Sells,Admin]
 def createTables():
 	for tableName in tableNames:
 		cursor.execute(tableName)
