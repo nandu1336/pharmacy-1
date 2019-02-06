@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
 	firstName = StringField('Firstname', validators=[DataRequired()]) 
-	lasttName = StringField('Lastname', validators=[DataRequired()]) 
+	lastName = StringField('Lastname', validators=[DataRequired()]) 
 	email = StringField('Email', validators=[DataRequired(),Email()])
 	password = PasswordField('New Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
 	confirm  = PasswordField('Repeat Password')

@@ -2346,6 +2346,25 @@ pre code
     background-clip: padding-box;
     box-shadow: none;
 }
+.{
+    font-size: 1rem;
+    line-height: 1.5;
+
+    display: block;
+
+    width: 100%;
+    height: calc(2.75rem + 2px);
+    padding: .625rem .75rem;
+
+    transition: all .2s cubic-bezier(.68, -.55, .265, 1.55); 
+
+    color: #8898aa;
+    border: 1px solid #cad1d7;
+    border-radius: .375rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: none;
+}
 @media screen and (prefers-reduced-motion: reduce)
 {
     .form-control
@@ -4470,6 +4489,17 @@ input[type='button'].btn-block
     display: flex;
 
     width: 100%; 
+
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+.input-group-firstname
+{
+    position: relative;
+
+    display: flex;
+
+    width: 50%; 
 
     flex-wrap: wrap;
     align-items: stretch;
