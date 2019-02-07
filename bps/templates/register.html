@@ -29,7 +29,7 @@
               <div class="text-center text-muted mb-4">
                 <small>Enter new user credentials</small>
               </div>
-              <form role="form">
+              <form  method="POST" onsubmit="validatePass()">
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
@@ -44,7 +44,6 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    {{ form.hidden_tag() }}
                     {{ form.lastName(placeholder = "Lastname" , class = "form-control", type ="text") }}
                   </div>
                 </div>
@@ -69,7 +68,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    {{ form.password(placeholder = "Password" , class = "form-control" , type = "password" )}}
+                    {{ form.password(placeholder = "Password" , id = "password" , class = "form-control" , type = "password" )}}
                   </div>
                 </div>
                 <div class="form-group">
@@ -77,14 +76,15 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    {{ form.confirm(placeholder = "Re-enter the Password" , class = "form-control" , type = "password" )}}
+                    {{ form.confirm(placeholder = "Re-enter the Password" , id = "confirm-password" , class = "form-control" , type = "password" )}}
                   </div>
                 </div>
-                <!-- <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div> -->
-                
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary mt-4">Create account</button>
+                	{{ form.submit(class = "btn btn-primary mt-4" , onsubmit = "validatePass()") }}
                 </div>
+                <dir id = "pw" class = "">
+                	
+                </dir>
               </form>
             </div>
           </div>
@@ -92,4 +92,22 @@
       </div>
     </div>
   </div>
-  {% endblock content %}}
+
+  <script type="text/javascript">
+  	function validatePass() {
+		var x = document.getElementById('password').value;
+		var y = document.getElementById('confirm-password').value;
+		if (x.length < 8 || y.length <8) {
+			alert("password should contain minimum 8 characters.");
+		}
+		else if( x != y ){
+
+			alert("Passwords do not match");
+			// document.getElementById("pw").innerHTML = "Passwords do not match";
+		}
+		else{
+			redirect("{{ url_for('Register.register') }}");
+		}
+	}
+  </script> 
+  {% endblock content %}

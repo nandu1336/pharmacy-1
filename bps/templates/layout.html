@@ -58,12 +58,14 @@
               </a>
             </li>
             {% if title == "Login" %}
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ url_for('Register.register') }}">
-                <i class="ni ni-circle-08"></i>
-                <span class="nav-link-inner--text">Register</span>
-              </a>
-            </li>
+              {% if session['username']  %}
+                <li class="nav-item">
+                  <a class="nav-link nav-link-icon" href="{{ url_for('Register.register') }}">
+                    <i class="ni ni-circle-08"></i>
+                    <span class="nav-link-inner--text">Add new user</span>
+                  </a>
+                </li>
+              {% endif %}
             {% else %}
             <li class="nav-item">
               <a class="nav-link nav-link-icon" href="{{ url_for('Login.login') }}">
