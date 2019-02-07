@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo
+from werkzeug.security import generate_password_hash,check_password_hash
 import keyboard as kb
 import pymysql as db
+import urllib.parse as up
 
 host = "localhost"
 user = "nandu"
@@ -30,8 +32,24 @@ email = "talluri.akshaykukmar@gmail.com"
 employId = "15532"
 passwordHash = "1231aalakoaldsfxcfccaklr98hacjfo9ahbKNfdosacvhabe3ul9oh"
 
-entry  =  "INSERT INTO admin VALUES ({},{},{},{},{}).format(employId,firstName,lastName,email,passwordHash)"
-cursor.execute(entry)
+# entry  =  "INSERT INTO admin VALUES ({},{},{},{},{}).format(employId,firstName,lastName,email,passwordHash)"
+# cursor.execute(entry)
+password = generate_password_hash('admin')
+cursor.execute("INSERT INTO Admin VALUES ('521' , 'admin' , 'baskar pharmacy', 'admin@baskar.com' , %s)",password)
+
+email = 'admin@baskar.com'
+cursor.execute("SELECT PASSWORD_HASH FROM admin WHERE EMAIL = %s",email)
+res = cursor.fetchall()
+passwordHash = ''.join(str(e) for e in res)
+stripeSymbols = ['\'','(',')',',','\'',]
+for symbol in stripeSymbols :
+	passwordHash = passwordHash.strip(symbol)
+print(passwordHash)
+
+if passwordHash == "admin":
+	print("you entered right password")
+if check_password_hash(passwordHash, "admin") :
+	print("your password is correct and verified using second method")
 
 	# 		if res > 0:
 	# 			raise ValidationError('An admin with this EMPLOY_ID already exists!!')

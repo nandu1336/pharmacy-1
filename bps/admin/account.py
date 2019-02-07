@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,redirect,flash,url_for
+from flask import Blueprint,render_template,redirect,flash,url_for,session,request
 from bps.forms import LoginForm,RegisterForm
 from werkzeug.security import generate_password_hash,check_password_hash
 import datetime
@@ -19,15 +19,31 @@ Register = Blueprint('Register',__name__)
 @Login.route('/login',methods = ['GET','POST'])
 def login():
 	form = LoginForm()
-	if form.validate_on_submit():
-		flash("you r successfully logged in")
-		return redirect(url_for('Home.index'))
-	return render_template("login.html",title = 'Login',form = form)
+	if request.method == 'POST' and form.validate_on_submit():
+		email = request.form['email']
+		password = request.form['password'] 
+		cursor.execute("SELECT PASSWORD_HASH FROM admin WHERE EMAIL = %s",email)
+		passwordHashes = cursor.fetchall()
+		if len(passwordHashes) < 1:
+			error = "FAILED AT EMAIL FIELD"
+		else:
+			passwordHash = ''.join(str(Hash) for Hash in passwordHashes)
+			stripeSymbols = ['\'','(',')',',','\'',]
+			for symbol in stripeSymbols :
+				passwordHash = passwordHash.strip(symbol)
+			if check_password_hash(passwordHash, password) :
+				session['user'] = True
+				error = "details are verified correctly .u will be redirected to dashboard"
+				return render_template("dashboard.html",error = error , title = "Dashboard")
+			else :
+				error = "FAILED AT PASSWORD"
+				return render_template("login.html", title = "Login" , form = form , error = error)
+	return render_template("login.html" , title = "Login" , form = form)
 
 @Register.route('/register',methods = ['GET','POST'])
 def register():
 	form = RegisterForm()
-	if form.validate_on_submit():
+	if request.method == 'POST' and form.validate_on_submit():
 		firstName = request.form['firstName'] 
 		lastName = request.form['lastName'] 
 		employId = request.form['employId'] 

@@ -22,6 +22,9 @@
 </head>
 
 <body class="bg-default">
+  {%if error%}
+    <script> alert("{{ error }}")</script>
+  {%endif%}
   <div class="main-content">
     <!-- Navbar -->
 	{% if title!="Dashboard" %}
