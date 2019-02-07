@@ -5,7 +5,7 @@ import datetime
 import pymysql as db
 
 host = "localhost"
-user = "nandu"
+user = "Project"
 password = "password"
 database = "pharmacy"
 port = 3306
