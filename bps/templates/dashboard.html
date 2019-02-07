@@ -2,6 +2,9 @@
 
 {% block content %}
 <body>
+  {% if error %}
+    <script type="text/javascript">alert("{{ error }}")</script>
+  {% endif %}
   <!-- Sidenav -->
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
