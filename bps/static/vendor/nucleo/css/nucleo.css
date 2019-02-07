@@ -297,8 +297,12 @@ License - nucleoapp.com/license/
 }
 
 .ni-cart::before {
+
     content: "\ea22";
+
 }
+
+
 
 .ni-chart-bar-32::before {
     content: "\ea23";
@@ -570,3 +574,5 @@ License - nucleoapp.com/license/
 
 
 /* all icon font classes list here */
+
+/* Akshay's code */

@@ -1,12 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo
-import keyboard as kb
+#import keyboard as kb
 import pymysql as db
 
 host = "localhost"
-user = "nandu"
-password = "password"
+user = "AKSHAY"
+password = "23232213"
 database = "pharmacy"
 port = 3306
 
