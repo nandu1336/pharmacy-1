@@ -45,9 +45,8 @@ Sells = "CREATE TABLE sells(DRUG_ID VARCHAR(10) ,PATIENT_ID INT(10) UNSIGNED ,SA
 Admin = "CREATE TABLE admin(EMPLOY_ID VARCHAR(10) ,FIRSTNAME VARCHAR(20) ,LASTNAME VARCHAR(20) ,EMAIL VARCHAR(50),PASSWORD_HASH CHAR(120) );"
 
 tableNames =[Drug,Purchase,Patient,SaleTransaction,DrugManufacturer,Distributor,Manufactures,Prescriptions,Supplies,Sells,Admin]
-def createTables():
-	for tableName in tableNames:
-		cursor.execute(tableName)
-		connection.commit()
+for tableName in tableNames:
+	cursor.execute(tableName)
+	connection.commit()
 		
-"INSERT INTO admin VALUES ('15531','NANDA KISHORE','SIVARAJU','NK732100@GMAIL.COM','NANDU141');"
+# "INSERT INTO admin VALUES ('15531','NANDA KISHORE','SIVARAJU','NK732100@GMAIL.COM','NANDU141');"
