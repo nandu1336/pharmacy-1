@@ -27,7 +27,7 @@
   {%endif%}
   <div class="main-content">
     <!-- Navbar -->
-	{% if title!="Dashboard" %}
+	{% if title != "Dashboard" %}
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
         <a class="navbar-brand" href="{{ url_for('Home.index') }}">BHASKAR PHARMACY</a>
@@ -53,36 +53,36 @@
             </div>
           </div>
           <!-- Navbar items -->
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ url_for('Dashboard.dashboard') }}">
-                <i class="ni ni-planet"></i>
-                <span class="nav-link-inner--text">Dashboard</span>
-              </a>
-            </li>
-            {% if title == "Login" %}
-              {% if session['username']  %}
-                <li class="nav-item">
-                  <a class="nav-link nav-link-icon" href="{{ url_for('Register.register') }}">
-                    <i class="ni ni-circle-08"></i>
-                    <span class="nav-link-inner--text">Add new user</span>
-                  </a>
-                </li>
+          {% if title == "Login" %}
+              {% if session['user']  %}
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ url_for('Dashboard.dashboard') }}">
+                      <i class="ni ni-planet"></i>
+                      <span class="nav-link-inner--text">Dashboard</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ url_for('Register.register') }}">
+                      <i class="ni ni-circle-08"></i>
+                      <span class="nav-link-inner--text">Add new user</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="../examples/profile.html">
+                      <i class="ni ni-single-02"></i>
+                      <span class="nav-link-inner--text">Profile</span>
+                    </a>
+                  </li>
               {% endif %}
             {% else %}
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ url_for('Login.login') }}">
-                <i class="ni ni-key-25"></i>
-                <span class="nav-link-inner--text">Login</span>
+              <li class="nav-item">
+                <a class="nav-link nav-link-icon" href="{{ url_for('Login.login') }}">
+                  <i class="ni ni-key-25"></i>
+                  <span class="nav-link-inner--text">Login</span>
                 </a>
-            </li>
+              </li>
             {% endif %}
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/profile.html">
-                <i class="ni ni-single-02"></i>
-                <span class="nav-link-inner--text">Profile</span>
-              </a>
-            </li>
           </ul>
         </div>
       </div>

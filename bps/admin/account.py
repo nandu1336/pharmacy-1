@@ -18,28 +18,27 @@ Register = Blueprint('Register',__name__)
 
 @Login.route('/login',methods = ['GET','POST'])
 def login():
+	if 'user' in session:
+		session.pop('user',None)
 	form = LoginForm()
-	if request.method == 'GET':
-		return render_template("login.html" , form = form , title = "login page" )
-	elif request.method == 'POST'and form.validate_on_submit():
+	if request.method == 'POST'and form.validate_on_submit():
 		email = request.form['email']
 		password = request.form['password'] 
-		cursor.execute("SELECT PASSWORD_HASH FROM admin WHERE EMAIL = %s",email)
-		passwordHashes = cursor.fetchall()
-		if len(passwordHashes) < 1:
-			error = "no user found with such details"
-		else:
-			passwordHash = ''.join(str(Hash) for Hash in passwordHashes)
-			stripeSymbols = ['\'','(',')',',','\'',]
-			for symbol in stripeSymbols :
-				passwordHash = passwordHash.strip(symbol)
+		cursor.execute("SELECT PASSWORD_HASH,FIRSTNAME FROM admin WHERE EMAIL = %s",email)
+		resultRows = cursor.fetchall()
+
+		if len(resultRows) == 1:
+			passwordHash = resultRows[0][0]
 			if check_password_hash(passwordHash, password) :
-				session['user'] = True
+				session['user'] = resultRows[0][1]
 				return render_template("dashboard.html" , title = "Dashboard",session = session)
 			else :
 				error = "no user found with such details"
+		else:
+			error = "no user found with such details"
 		return render_template("login.html", title = "Login" , form = form , error = error)
 
+	return render_template("login.html" , form = form , title = "Login" )
 @Register.route('/register',methods = ['GET','POST'])
 def register():
 	form = RegisterForm()
@@ -55,13 +54,13 @@ def register():
 		noOfUsers = cursor.fetchall()
 		if len(noOfUsers) > 0:
 			error="A user with this Roll Number/Email already exists."
-			return render_template("register.html", title = 'Register', form = form , error=error)
+			return redirect(url_for('register'))
 		else :
 			if password == confirm:
-
 				passwordHash=generate_password_hash(password)
 				cursor.execute("INSERT INTO admin VALUES (%s,%s,%s,%s,%s)",(employId,firstName,lastName,email,passwordHash))
-				return render_template("login.html")
+				connection.commit()
+				return redirect(url_for('Login.login'))
 			else :
 				error="Passwords do not match"
 				return render_template("register.html",error=error)
