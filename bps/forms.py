@@ -1,18 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo,Length
-#import keyboard as kb
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo
-import pymysql as db
-
-host = "localhost"
-user = "Project"
-password = "password"
-database = "pharmacy"
-port = 3306
-
-connection = db.connect(host,user,password,database,port)
-cursor = connection.cursor()
+from wtforms.validators import DataRequired,Email,InputRequired,EqualTo
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email()])

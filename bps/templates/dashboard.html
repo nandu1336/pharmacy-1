@@ -2,6 +2,9 @@
 
 {% block content %}
 <body>
+  {% if error %}
+    <script type="text/javascript">alert("{{ error }}")</script>
+  {% endif %}
   <!-- Sidenav -->
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
@@ -10,7 +13,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./index.html">
+      <a class="navbar-brand pt-0" href="{{ url_for('Home.index') }}">
         PHARMACY
       </a>
       <!-- User -->
@@ -55,7 +58,7 @@
               <span>Support</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#!" class="dropdown-item">
+            <a href="{{ url_for('Login.login') }}" class="dropdown-item">
               <i class="ni ni-user-run"></i>
               <span>Logout</span>
             </a>
@@ -94,7 +97,7 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.html">
+            <a class="nav-link" href="{{ url_for('Home.index') }}">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
@@ -143,8 +146,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('Home.index') }}">
+            <a class="nav-link" href="{{ url_for('Login.login') }}">
               <i class="ni ni-button-power"></i> Logout
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('Register.register') }}">
+              <i class="ni ni-button-power"></i> Add user
             </a>
           </li>
 		  <!-- !!!!!!!!!!!!!!!!!NOT NEEDED AS OF NOW!!!!!!!!!!!!!!!!
@@ -164,7 +172,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ url_for('Home.index') }}">Dashboard</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -185,7 +193,7 @@
                   <img alt="Image placeholder" src="../static/img/theme/killua.jpg">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Akshay Kumar</span>
+                  <span class="mb-0 text-sm  font-weight-bold">{{  session['user'] }}</span>
                 </div>
               </div>
             </a>
@@ -210,7 +218,7 @@
                 <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
+              <a href="{{ url_for('Login.login') }}" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
