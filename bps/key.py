@@ -33,11 +33,11 @@ cursor = connection.cursor()
 # entry  =  "INSERT INTO admin VALUES ({},{},{},{},{}).format(employId,firstName,lastName,email,passwordHash)"
 # cursor.execute(entry)
 password = generate_password_hash('admin')
-# cursor.execute("INSERT INTO admin VALUES ('521' , 'admin' , 'baskar pharmacy', 'admin@baskar.com' , %s)",password)
-# connection.commit()
-cursor.execute("SELECT PASSWORD_HASH,FIRSTNAME FROM admin")
-res = cursor.fetchall()
-print(res[0][0],res[0][1])
+cursor.execute("INSERT INTO admin VALUES ('521' , 'admin' , 'baskar pharmacy', 'admin@baskar.com' , %s)",password)
+connection.commit()
+# cursor.execute("SELECT PASSWORD_HASH,FIRSTNAME FROM admin")
+# res = cursor.fetchall()
+# print(res[0][0],res[0][1])
 # print(res)
 # email = 'admin@baskar.com'
 # password = 'admin'
@@ -53,16 +53,16 @@ print(res[0][0],res[0][1])
 # for symbol in stripeSymbols :
 # 	passwordHash = passwordHash.strip(symbol)
 
-passwordHash = res[0][0]
+# passwordHash = res[0][0]
 # print(passwordHash)
 # if passwordHash == str(generate_password_hash('admin')):
 # 	print("your details are verified")
 # else:
 # 	print("you entered wrong details")
-if check_password_hash(passwordHash, 'admin') :
-	print("your details are verified")
-else:
-	print("entered wrong details")
+# if check_password_hash(passwordHash, 'admin') :
+# 	print("your details are verified")
+# else:
+# 	print("entered wrong details")
 
 
 # cursor.execute("SELECT PASSWORD_HASH FROM admin WHERE EMAIL = %s",email)

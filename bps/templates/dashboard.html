@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
+
+<!-- FROM HERE TILL THERE ITS THE SAME -->
+
+
+
 <body>
   {% if error %}
     <script type="text/javascript">alert("{{ error }}")</script>
@@ -147,7 +153,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('Register.register') }}">
-              <i class="ni ni-button-power"></i> Add user
+              <i class="ni ni-fat-add"></i> Add user
             </a>
           </li>
           <li class="nav-item">
@@ -172,7 +178,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ url_for('Home.index') }}">Dashboard</a>
+           <a class="breadcrumb-item active text-white" aria-current="page">Dashboard</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -324,6 +330,15 @@
         </div>
       </div>
     </div>
+
+
+    <!-- THERE -->
+
+
+
+
+
+
     <!-- Page content -->
 	<div class="container-fluid mt--7">
 		<div class="container-fluid">
