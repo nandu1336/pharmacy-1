@@ -1,17 +1,8 @@
 from flask import Blueprint,render_template,redirect,flash,url_for,session,request
 from bps.forms import LoginForm,RegisterForm
 from werkzeug.security import generate_password_hash,check_password_hash
+from bps.dbase import connection,cursor
 import datetime
-import pymysql as db
-
-host = "localhost"
-user = "Project"
-password = "password"
-database = "pharmacy"
-port = 3306
-
-connection = db.connect(host,user,password,database,port)
-cursor = connection.cursor()
 
 Login = Blueprint('Login', __name__)
 Register = Blueprint('Register',__name__)

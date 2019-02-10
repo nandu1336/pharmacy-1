@@ -1,4 +1,6 @@
 from flask import Blueprint,render_template,redirect,flash,url_for,session,request
+from bps.dbase import connection,cursor
+from bps.forms import SearchBarForm
 
 Dashboard = Blueprint('Dashboard', __name__)
 
@@ -9,13 +11,19 @@ def dashboard():
 	else:
 		return redirect(url_for('Login.login'))
 
-@Dashboard.route('/stock-Info')
+@Dashboard.route('/stock-Info' , methods = ['POST','GET'])
 def stockInfo():
+	form = SearchBarForm()
 	if 'user' in session :
 		if request.method == 'POST' and form.validate_on_submit():
-			return render_template('product.html')
+			keyword = request.form['searchFor']
+			cursor.execute("SELECT * FROM drug WHERE GENERIC_NAME = %s",keyword)
+			productsInfo = cursor.fetchall()
+			return render_template('product.html' , form = form, result = productsInfo)
 		else :
-			return render_template('product.html')
+			cursor.execute("SELECT * FROM drug;")
+			productsInfo = cursor.fetchall()
+			return render_template('product.html' , form = form , result = productsInfo )
 	else :
 		return redirect(url_for('Login.login'))
 

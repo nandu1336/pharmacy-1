@@ -32,9 +32,13 @@ cursor = connection.cursor()
 
 # entry  =  "INSERT INTO admin VALUES ({},{},{},{},{}).format(employId,firstName,lastName,email,passwordHash)"
 # cursor.execute(entry)
-password = generate_password_hash('admin')
-cursor.execute("INSERT INTO admin VALUES ('521' , 'admin' , 'baskar pharmacy', 'admin@baskar.com' , %s)",password)
-connection.commit()
+
+# INSERTING A DEFAULT ADMIN VALUES INTO THE DATABASE
+# password = generate_password_hash('admin')
+# cursor.execute("INSERT INTO admin VALUES ('521' , 'admin' , 'baskar pharmacy', 'admin@baskar.com' , %s)",password)
+# connection.commit()
+
+
 # cursor.execute("SELECT PASSWORD_HASH,FIRSTNAME FROM admin")
 # res = cursor.fetchall()
 # print(res[0][0],res[0][1])
@@ -88,3 +92,15 @@ connection.commit()
 	# password = PasswordField('New Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
 	# confirm  = PasswordField('Repeat Password')
 	# submit = SubmitField('Sign Up')
+
+	# INSERTING VALUES INTO THE DRUG TABLE:
+cursor.execute("INSERT INTO DRUG VALUES ('SODIUM VALPORATE HYDROXIDE','VALPHYARIN 250','SOMExyz','2019-02-09','2022-01-23',\
+	'150','198','300',2,'250','SI200' ), ('SODIUM VALPORATE','VALPARIN 200','SOMExyz','2019-02-09','2022-01-23',\
+	'75','98','700',2,'200','SV200' ),('IBUPROFIN','BRUFIN 200','SOMEXyz','2019-02-09','2022-01-23',\
+	'45','32','1200',2,'200','IB200' );")
+connection.commit()
+cursor.execute("SELECT * FROM drug;")
+productsInfo = cursor.fetchall()
+for p in productsInfo:
+	for i in range(0,10):
+		print(p[i])
