@@ -1,12 +1,6 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-
-<!-- FROM HERE TILL THERE ITS THE SAME -->
-
-
-
 <body>
   {% if error %}
     <script type="text/javascript">alert("{{ error }}")</script>
@@ -127,19 +121,7 @@
               <i class="ni ni-chart-bar-32 text-red"></i> Sales history
             </a>
           </li>
-		  <!-- !!!!!!!!!!!!!!NOT NEEDED AS OF NOW!!!!!!!!!!!!!!!!
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> Login
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/register.html">
-              <i class="ni ni-circle-08 text-pink"></i> Register
-            </a>
-          </li>
-		  -->
-        </ul>
+		</ul>
         <!-- Divider -->
         <hr class="my-3">
         <!-- Heading -->
@@ -151,9 +133,10 @@
               <i class="ni ni-settings-gear-65"></i> Settings
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('Register.register') }}">
-
+              <i class="ni ni-circle-08"></i> Add user
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('Login.login') }}">
@@ -177,9 +160,9 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-           <a class="breadcrumb-item active text-white" aria-current="page">Dashboard</a>
+        <!-- <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ url_for('Home.index') }}">Dashboard</a> -->
         <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        <!-- <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
             <div class="input-group input-group-alternative">
               <div class="input-group-prepend">
@@ -188,9 +171,9 @@
               <input class="form-control" placeholder="Search" type="text">
             </div>
           </div>
-        </form>
+        </form> -->
         <!-- User -->
-        <ul class="navbar-nav align-items-center d-none d-md-flex">
+        <ul class="navbar-nav align-items-center d-none d-md-flex ml-lg-auto">
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
@@ -222,12 +205,12 @@
                 <i class="ni ni-support-16"></i>
                 <span>Support</span>
               </a>
-              <div class="dropdown-divider"></div>
+           <!--    <div class="dropdown-divider"></div>
               <a href="{{ url_for('Login.login') }}" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
-            </div>
+            </div> -->
           </li>
         </ul>
       </div>
@@ -238,7 +221,7 @@
         <div class="header-body">
           <!-- Card stats -->
 		  
-		  <!-- !!!!!!!NOT NEEDED AS OF NOW
+		  <!-- !!!!!!!NOT NEEDED AS OF NOW -->
           <div class="row">
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
@@ -325,19 +308,10 @@
               </div>
             </div>
           </div>
-		  -->
+		 
         </div>
       </div>
     </div>
-
-
-    <!-- THERE -->
-
-
-
-
-
-
     <!-- Page content -->
 	<div class="container-fluid mt--7">
 		<div class="container-fluid">
@@ -356,7 +330,7 @@
 					<div class="card-body">
 						<h2 class="card-title" style="text-align: center;">Products</h2>
 						<p class="card-text" style="text-align: center;">Know the information about all the products.</p>
-						<div style="text-align: center;"><a href="{{ url_for('Dashboard.stockInfo') }}" class="btn btn-primary">Stock info</a></div>
+						<div style="text-align: center;"><a href="#" class="btn btn-primary">Stock info</a></div>
 					</div>
 				</div>
 			</div>
@@ -388,34 +362,7 @@
 	
 	
 	</div>
-      <!-- Footer -->
-	  <!-- !!!!!!!!FOOTER NOT NEEDED AS OF NOW
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
-	  -->
+	 
     </div>
   </div>
   <!-- Argon Scripts -->

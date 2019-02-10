@@ -21,7 +21,7 @@ def login():
 	if 'user' in session:
 		session.pop('user',None)
 	form = LoginForm()
-	if request.method == 'POST'and form.validate_on_submit():
+	if request.method == 'POST' and form.validate_on_submit():
 		email = request.form['email']
 		password = request.form['password'] 
 		cursor.execute("SELECT PASSWORD_HASH,FIRSTNAME FROM admin WHERE EMAIL = %s",email)
