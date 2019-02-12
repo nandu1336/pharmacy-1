@@ -787,6 +787,16 @@ pre code
     padding-left: 15px;
 }
 
+.search-container-fluid
+{
+    display: flex;
+    width: 30%;
+    margin-right: auto;
+    margin-left: auto; 
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
 .row
 {
     display: flex;
@@ -21896,4 +21906,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
     bottom: 0; 
 
     height: 3px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: flex-start;
 }

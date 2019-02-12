@@ -217,16 +217,18 @@
     </nav>
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-	 <!-- <div class="form-group mb-6">
-              <div class="input-group input-group-alternative"> -->
+		<div class="form-group mb-6">
+            <!-- <div class="input-group input-group-alternative"> -->
       <div class="container-fluid">
-        <div class="header-body">
-        	<form method = "POST" action = "{{ url_for('Dashboard.stockInfo') }}">
-	        	{{ form.hidden_tag() }}
-	    		<div class="container-fluid mt-4">{{ form.searchFor(placeholder = "Search by Name" , class = 'form-control') }}</div>
-	    		<div class="container-fluid">{{ form.submit() }}</div>
+        <!-- <div class="my-header"> -->
+        	<form method = "POST" action = "{{ url_for('Dashboard.stockInfo') }}" class="mt-4 mb-3 d-md-none">
+                
+		        	{{ form.hidden_tag() }}
+		    		<div class="container-fluid mt-4">{{ form.searchFor(placeholder = "Search by Name" , class = " search-for-med" ) }}</div>
+		    		<div class="container-fluid">{{ form.submit() }}</div>
+		    	
     		</form>
-        </div>
+    	</div>
       </div>
     </div>
 
