@@ -27,3 +27,10 @@ def stockInfo():
 	else :
 		return redirect(url_for('Login.login'))
 
+@Dashboard.route('/new-sell' , methods = ['POST','GET'])
+def newSell():
+	form = SearchBarForm()
+	if 'user' in session :
+		return render_template('sell.html' , form = form, result = newSell)
+	else :
+		return redirect(url_for('Login.login'))
