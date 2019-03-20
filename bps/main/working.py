@@ -38,3 +38,10 @@ def newSell():
 		return render_template('sell.html' , form = form, result = newSell)
 	else :
 		return redirect(url_for('Login.login'))
+@Dashboard.route('/new-entry' , methods = ['POST','GET'])
+def newEntry():
+	form = SearchBarForm()
+	if 'user' in session :
+		return render_template('newEntry.html' , form = form, result = newEntry)
+	else :
+		return redirect(url_for('Login.login'))

@@ -283,15 +283,15 @@
               </div>
               <input class="form-control" placeholder="Search" id = "searchFor" type="text">
             </div>
+             <div class="col-sm-2">
+              <select class="form-control selcls" id="classBy">
+                <option style="color:black;">Generic name</option>
+                <option style="color:black;">Product name</option>
+                <option style="color:black;">Supplier</option>
+              </select>          
+            </div>
           </div>
-          <div class="col-sm-2">
-          <select class="form-control selcls" id="classBy">
-            <option style="color:black;" value="GENERIC_NAME">Generic name</option>
-            <option style="color:black;" value="PRODUCT_NAME">Product name</option>
-            <option style="color:black;" value="SUPPLIER">Supplier</option>
-          </select>          
-          
-        </div>
+        <button type="button" class="btn btn-dark">Search</button>
         </form>
         {% endif %}
       
