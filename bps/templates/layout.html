@@ -275,13 +275,13 @@
            <a class="breadcrumb-item active text-white" aria-current="page">Add User</a>
         <!-- Form- SEARCH BAR -->
         {% if  title == "Product" %}
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto" action="{{ url_for('Dashboard.stockInfo') }}" method="POST">
           <div class="form-group mb-0">
             <div class="input-group input-group-alternative">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
               </div>
-              <input class="form-control" placeholder="Search" type="text">
+              <input class="form-control" placeholder="Search" id = "searchFor" type="text">
             </div>
              <div class="col-sm-2">
               <select class="form-control selcls" id="classBy">

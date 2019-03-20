@@ -17,11 +17,15 @@ def stockInfo():
 	if 'user' in session :
 		if request.method == 'POST' and form.validate_on_submit():
 			keyword = request.form['searchFor']
-			cursor.execute("SELECT * FROM drug WHERE GENERIC_NAME = %s",keyword)
+			classBy = request.form['classBy']
+			cursor.execute("SELECT * FROM drug WHERE %s = %s",(classBy,keyword))
 			productsInfo = cursor.fetchall()
 			return render_template('product.html' , form = form, result = productsInfo, title = 'Product')
 		else :
-			cursor.execute("SELECT * FROM drug;")
+			classBy = "GENERIC_NAME"
+			keyword = "valparin 200"
+			cursor.execute("SELECT * FROM drug WHERE %s = %s",(classBy,keyword))
+			# cursor.execute("SELECT * FROM drug;")
 			productsInfo = cursor.fetchall()
 			return render_template('product.html' , form = form , result = productsInfo, title = 'Product')
 	else :
