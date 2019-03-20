@@ -69,6 +69,7 @@
                 </tbody>
               </table>
             </div>
+
             <div class="card-footer py-4">
               <nav aria-label="...">
                 <ul class="pagination justify-content-end mb-0">
@@ -94,10 +95,15 @@
                 </ul>
               </nav>
             </div>
+            <div class="btn-group" role="group"  aria-label="Basic example" style="text-align:center;">
+              <div><a href="{{ url_for('Dashboard.newSell') }}" class="btn btn-success">New Entry</a></div>
+            <div><a href="{{ url_for('Dashboard.newSell') }}" class="btn btn-danger">Delete Entry</a></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   
   
   
