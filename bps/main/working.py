@@ -19,11 +19,11 @@ def stockInfo():
 			keyword = request.form['searchFor']
 			cursor.execute("SELECT * FROM drug WHERE GENERIC_NAME = %s",keyword)
 			productsInfo = cursor.fetchall()
-			return render_template('product.html' , form = form, result = productsInfo)
+			return render_template('product.html' , form = form, result = productsInfo, title = 'Product')
 		else :
 			cursor.execute("SELECT * FROM drug;")
 			productsInfo = cursor.fetchall()
-			return render_template('product.html' , form = form , result = productsInfo )
+			return render_template('product.html' , form = form , result = productsInfo, title = 'Product')
 	else :
 		return redirect(url_for('Login.login'))
 
