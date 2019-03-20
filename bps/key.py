@@ -94,11 +94,11 @@ cursor = connection.cursor()
 	# submit = SubmitField('Sign Up')
 
 	# INSERTING VALUES INTO THE DRUG TABLE:
-cursor.execute("INSERT INTO DRUG VALUES ('SODIUM VALPORATE HYDROXIDE','VALPHYARIN 250','SOMExyz','2019-02-09','2022-01-23',\
-	'150','198','300',2,'250','SI200' ), ('SODIUM VALPORATE','VALPARIN 200','SOMExyz','2019-02-09','2022-01-23',\
-	'75','98','700',2,'200','SV200' ),('IBUPROFIN','BRUFIN 200','SOMEXyz','2019-02-09','2022-01-23',\
-	'45','32','1200',2,'200','IB200' );")
-connection.commit()
+# cursor.execute("INSERT INTO DRUG VALUES ('SODIUM VALPORATE HYDROXIDE','VALPHYARIN 250','SOMExyz','2019-02-09','2022-01-23',\
+# 	'150','198','300',2,'250','SI200' ), ('SODIUM VALPORATE','VALPARIN 200','SOMExyz','2019-02-09','2022-01-23',\
+# 	'75','98','700',2,'200','SV200' ),('IBUPROFIN','BRUFIN 200','SOMEXyz','2019-02-09','2022-01-23',\
+# 	'45','32','1200',2,'200','IB200' );")
+# connection.commit()
 # cursor.execute("SELECT * FROM drug;")
 # productsInfo = cursor.fetchall()
 # for p in productsInfo:
