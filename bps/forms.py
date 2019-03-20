@@ -25,3 +25,17 @@ class SearchBarForm(FlaskForm):
 	searchFor = StringField('Search', validators = [DataRequired()])
 	submit = SubmitField('Search')
 
+class NewEntry(FlaskForm):
+	productName = StringField('Productname',validators = [DataRequired()])
+	genericName = StringField('Genericname',validators = [DataRequired()])
+	supplier = StringField('Supplier',validators = [DataRequired()])
+	dateReceived = StringField('Date received',validators = [DataRequired()])
+	expiryDate = StringField('Expiry date',validators = [DataRequired()])
+	costPrice = StringField('Cost price',validators = [DataRequired()])
+	MRP = StringField('MRP',validators = [DataRequired()])
+	stock = StringField('Stock',validators = [DataRequired()])
+	medicineType  = StringField('Type',validators = [DataRequired()])
+	dose = StringField('Dose',validators = [DataRequired()])
+	drugId = StringField('Drug Id',validators = [DataRequired()])
+
+
