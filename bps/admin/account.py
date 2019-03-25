@@ -7,6 +7,7 @@ import datetime
 Login = Blueprint('Login', __name__)
 Register = Blueprint('Register',__name__)
 
+# Login view 
 @Login.route('/login',methods = ['GET','POST'])
 def login():
 	if 'user' in session:
@@ -30,6 +31,9 @@ def login():
 		return render_template("login.html", title = "Login" , form = form , error = error)
 
 	return render_template("login.html" , form = form , title = "Login" )
+
+
+# Register view
 @Register.route('/register',methods = ['GET','POST'])
 def register():
 	form = RegisterForm()

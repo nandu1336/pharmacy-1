@@ -18,6 +18,17 @@ port = 3306
 
 connection = db.connect(host,user,password,database,port)
 cursor = connection.cursor()
+
+
+# query using parameterized arguments to the execute function 
+
+keyword = "valparin 200"
+classBy = "GENERIC_NAME"
+cursor.execute("SELECT * FROM drug WHERE GENERIC_NAME = 'valparin 200'")
+output = cursor.fetchall()
+print(output)
+
+
 # string = input("enter you employId:")
 # print("press space to continue")
 # kb.wait('space')

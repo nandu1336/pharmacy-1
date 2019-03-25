@@ -37,5 +37,6 @@ class NewEntry(FlaskForm):
 	medicineType  = StringField('Type',validators = [DataRequired()])
 	dose = StringField('Dose',validators = [DataRequired()])
 	drugId = StringField('Drug Id',validators = [DataRequired()])
+	submit = SubmitField('Submit')
 
 

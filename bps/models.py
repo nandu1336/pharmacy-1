@@ -50,4 +50,4 @@ for tableName in tableNames:
 	cursor.execute(tableName)
 	connection.commit()
 		
-# "INSERT INTO admin VALUES ('15531','NANDA KISHORE','SIVARAJU','NK732100@GMAIL.COM','NANDU141');"
+

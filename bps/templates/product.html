@@ -95,10 +95,25 @@
                 </ul>
               </nav>
             </div>
-            <div class="btn-group" role="group"  aria-label="Basic example" style="text-align:center;">
-              <div><a href="{{ url_for('Dashboard.newEntry') }}" class="btn btn-success">New Entry</a></div>
-            <div><a href="{{ url_for('Dashboard.newSell') }}" class="btn btn-danger">Delete Entry</a></div>
+            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group ml-2 mb-2" role="group" aria-label="First group">
+                <a href="{{ url_for('Dashboard.newEntry') }}" type="button" class="btn btn-success">New Entry</a>
+              </div>
+              <div class="input-group mr-2 mb-2">
+                <div class="input-group-prepend">
+                  
+                <a href="{{ url_for('Dashboard.newSell') }}" type="button" class="btn btn-danger">Delete Entry</a>
+                </div>
+              </div>
             </div>
+            <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group  mr-7" role="group"  aria-label="First group"  >
+                <div><a href="{{ url_for('Dashboard.newEntry') }}" class="btn btn-success" align="center">New Entry</a></div>
+              </div>
+              <div class="btn-group ml-7" role="group"  aria-label="Third group" >
+                <div><a  class="btn btn-danger">Delete Entry</a></div>
+              </div>
+            </div> -->
           </div>
         </div>
       </div>

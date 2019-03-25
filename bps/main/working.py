@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,flash,url_for,session,request
 from bps.dbase import connection,cursor
-from bps.forms import SearchBarForm
+from bps.forms import SearchBarForm,NewEntry
 
 Dashboard = Blueprint('Dashboard', __name__)
 
@@ -18,14 +18,16 @@ def stockInfo():
 		if request.method == 'POST' and form.validate_on_submit():
 			keyword = request.form['searchFor']
 			classBy = request.form['classBy']
-			cursor.execute("SELECT * FROM drug WHERE %s = %s",(classBy,keyword))
+			if(classBy == "GENERIC_NAME"):
+				cursor.execute("SELECT * FROM drug WHERE GENERIC_NAME = %s",keyword)
+			elif(classBy == "SUPPLIER"):
+				cursor.execute("SELECT * FROM drug WHERE SUPPLIER = %s",keyword)
+			elif(classBy == "EXPIRY_DATE"):
+				cursor.execute("SELECT * FROM drug WHERE EXPIRY_DATE = %s",keyword)
 			productsInfo = cursor.fetchall()
 			return render_template('product.html' , form = form, result = productsInfo, title = 'Product')
 		else :
-			classBy = "GENERIC_NAME"
-			keyword = "valparin 200"
-			cursor.execute("SELECT * FROM drug WHERE %s = %s",(classBy,keyword))
-			# cursor.execute("SELECT * FROM drug;")
+			cursor.execute("SELECT * FROM drug;")
 			productsInfo = cursor.fetchall()
 			return render_template('product.html' , form = form , result = productsInfo, title = 'Product')
 	else :
@@ -35,13 +37,13 @@ def stockInfo():
 def newSell():
 	form = SearchBarForm()
 	if 'user' in session :
-		return render_template('sell.html' , form = form, result = newSell)
+		return render_template('sell.html' , form = form)
 	else :
 		return redirect(url_for('Login.login'))
 @Dashboard.route('/new-entry' , methods = ['POST','GET'])
 def newEntry():
-	form = SearchBarForm()
+	form = NewEntry()
 	if 'user' in session :
-		return render_template('newEntry.html' , form = form, result = newEntry)
+		return render_template('newEntry.html' , form = form)
 	else :
 		return redirect(url_for('Login.login'))
