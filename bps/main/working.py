@@ -25,7 +25,7 @@ def stockInfo():
 			elif(classBy == "SUPPLIER"):
 				cursor.execute("SELECT * FROM drug WHERE SUPPLIER = %s",keyword)
 			elif(classBy == "EXPIRY_DATE"):
-				cursor.execute("SELECT * FROM drug WHERE EXPIRY_DATE = %s",keyword)
+				cursor.execute("SELECT * FROM drug WHERE EXPIRY_DATE >= %s",keyword)
 			productsInfo = cursor.fetchall()
 			return render_template('product.html' , form = form, result = productsInfo, title = 'Product')
 		else :
@@ -61,6 +61,7 @@ def newEntry():
 
 			if cursor.execute("INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",\
 				(productName,genericName,supplier,receivedDate,expiryDate,costPrice,MRP,stock,medicineType,dose,drugId)):
+				connection.commit()
 				error =  "product details entered successfully"
 			else:
 				error = "could not enter product details."
