@@ -24,7 +24,8 @@ class RegisterForm(FlaskForm):
 class SearchBarForm(FlaskForm):
 	searchFor = StringField('Search', validators = [DataRequired()])
 	submit = SubmitField('Search')
-	select =  SelectField('Search from', choices = [('Generic name','GENERIC_NAME'),('expiry date','EXPIRY_DATE'),('supplier','SUPPLIER')])
+	datePicker = DateField('Date Picker',format = "%Y-%m-%d" ,validators = [DataRequired()] )
+	select =  SelectField('Search from', choices = [('GENERIC_NAME','GENERIC_NAME'),('EXPIRY_DATE','EXPIRY_DATE'),('SUPPLIER','SUPPLIER')])
 
 class NewEntry(FlaskForm):
 	productName = StringField('Productname',validators = [DataRequired()])
@@ -35,7 +36,7 @@ class NewEntry(FlaskForm):
 	costPrice = StringField('Cost price',validators = [DataRequired()])
 	MRP = StringField('MRP',validators = [DataRequired()])
 	stock = StringField('Stock',validators = [DataRequired()])
-	medicineType  = SelectField('Type', choices = [('default','Type'),('1','tablet'),('2','capsule'),('3','tonic')] , validators = [DataRequired()])
+	medicineType  = SelectField('Type', choices = [('default','Type'),('1','capsule'),('2','tablet'),('3','tonic')] , validators = [DataRequired()])
 	dose = StringField('Dose',validators = [DataRequired()])
 	drugId = StringField('Drug Id',validators = [DataRequired()])
 	submit = SubmitField('Submit')

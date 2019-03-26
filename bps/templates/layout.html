@@ -34,6 +34,8 @@
     } 
    
 </style>    
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body class="bg-default">
@@ -280,11 +282,13 @@
           <div class="form-group mb-0">
             <div class="input-group input-group-alternative">
               <div class="input-group-prepend">
-                {{ form.searchFor( style = "color:black;" , placeholder = "search" , class = "input-group-text fas fa-search") }}
+                {{ form.select(id = "selectOption", class="form-control selcls -secondary" , style = "color:black;") }}
+                <!-- {{ form.searchFor( style = "color:black;" , placeholder = "search" , class = "input-group-text fas fa-search") }} -->
               </div>
             </div>
              <div class="col-sm-2">
-              {{ form.select(class="form-control selcls -secondary" , style = "color:black;") }}
+                {{ form.searchFor( style = "color:black;" , placeholder = "search" , class = "input-group-text fas fa-search") }}
+              <!-- {{ form.select(class="form-control selcls -secondary" , style = "color:black;") }} -->
             </div>
           </div>
           {{ form.submit(class="btn btn-dark") }}
