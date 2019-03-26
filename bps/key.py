@@ -22,12 +22,41 @@ cursor = connection.cursor()
 
 # query using parameterized arguments to the execute function 
 
-keyword = "valparin 200"
-classBy = "GENERIC_NAME"
-cursor.execute("SELECT * FROM drug WHERE GENERIC_NAME = 'valparin 200'")
-output = cursor.fetchall()
-print(output)
+# keyword = "SOMExyz"
+# classBy = "GENERIC_NAME"
+# cursor.execute("SELECT * FROM drug WHERE SUPPLIER = %s",keyword)
+# outputs = cursor.fetchall()
+# for output in outputs:
+# 	for everyInput in output :
+# 		print(everyInput)
+# 	print("\n")
 
+
+productName = "lopermide hydrochloride"
+genericName = "L-par"
+supplier = "nandu"
+receivedDate = "2019-03-26"
+expiryDate = "2021-03-06"
+costPrice = "20"
+MRP = "30"
+stock = "250"
+medicineType = "1"
+dose = "2"
+drugId = "l-par2"
+
+# query = "INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(productName,genericName,supplier,receivedDate,expiryDate,costPrice,\
+# MRP,stock,medicineType,dose,drugId)
+
+if cursor.execute("INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(productName,genericName,supplier,receivedDate,expiryDate,costPrice,MRP,stock,medicineType,dose,drugId)):
+	connection.commit()
+	print("successfully iserted and changes are reflected in the database:")
+	var = input("press Y to see the drug table:")
+	if var =='y'or var == 'Y':
+		cursor.execute("SELECT * FROM drug;")
+		results = cursor.fetchall()
+		for result in results:
+			print(result)
+			print("\n")
 
 # string = input("enter you employId:")
 # print("press space to continue")

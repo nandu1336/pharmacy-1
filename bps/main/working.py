@@ -1,6 +1,7 @@
 from flask import Blueprint,render_template,redirect,flash,url_for,session,request
 from bps.dbase import connection,cursor
 from bps.forms import SearchBarForm,NewEntry
+import datetime
 
 Dashboard = Blueprint('Dashboard', __name__)
 
@@ -15,9 +16,10 @@ def dashboard():
 def stockInfo():
 	form = SearchBarForm()
 	if 'user' in session :
-		if request.method == 'POST' and form.validate_on_submit():
+		if request.method == 'POST' :
 			keyword = request.form['searchFor']
-			classBy = request.form['classBy']
+			classBy = request.form['select']
+			cursor.execute("SELECT * FROM drug WHERE GENERIC_NAME = %s",keyword)
 			if(classBy == "GENERIC_NAME"):
 				cursor.execute("SELECT * FROM drug WHERE GENERIC_NAME = %s",keyword)
 			elif(classBy == "SUPPLIER"):
@@ -44,6 +46,25 @@ def newSell():
 def newEntry():
 	form = NewEntry()
 	if 'user' in session :
+		if request.method == 'POST' and form.validate_on_submit():
+			productName = request.form['productName']
+			genericName = request.form['genericName']
+			supplier = request.form['supplier']
+			receivedDate = request.form['dateReceived']
+			expiryDate = request.form['expiryDate']
+			costPrice = request.form['costPrice']
+			MRP = request.form['MRP']
+			stock = request.form['stock']
+			medicineType = request.form['medicineType']
+			dose = request.form['dose']
+			drugId = request.form['drugId']
+
+			if cursor.execute("INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",\
+				(productName,genericName,supplier,receivedDate,expiryDate,costPrice,MRP,stock,medicineType,dose,drugId)):
+				error =  "product details entered successfully"
+			else:
+				error = "could not enter product details."
+			return render_template('newEntry.html', form = form , error = error)
 		return render_template('newEntry.html' , form = form)
 	else :
 		return redirect(url_for('Login.login'))

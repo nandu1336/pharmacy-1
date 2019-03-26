@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField , SelectField
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo,Length
-from wtforms.validators import DataRequired,Email,InputRequired,EqualTo
-from wtforms.validators import DataRequired,Email,InputRequired,EqualTo
+from wtforms.fields.html5 import DateField
+import datetime
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(),Email()])
@@ -24,17 +24,18 @@ class RegisterForm(FlaskForm):
 class SearchBarForm(FlaskForm):
 	searchFor = StringField('Search', validators = [DataRequired()])
 	submit = SubmitField('Search')
+	select =  SelectField('Search from', choices = [('Generic name','GENERIC_NAME'),('expiry date','EXPIRY_DATE'),('supplier','SUPPLIER')])
 
 class NewEntry(FlaskForm):
 	productName = StringField('Productname',validators = [DataRequired()])
 	genericName = StringField('Genericname',validators = [DataRequired()])
 	supplier = StringField('Supplier',validators = [DataRequired()])
-	dateReceived = StringField('Date received',validators = [DataRequired()])
-	expiryDate = StringField('Expiry date',validators = [DataRequired()])
+	dateReceived = DateField('Date received', format = "%Y-%m-%d" , default = datetime.datetime.today , validators = [DataRequired()])
+	expiryDate = DateField('Expiry date', format = "%Y-%m-%d" , validators = [DataRequired()])
 	costPrice = StringField('Cost price',validators = [DataRequired()])
 	MRP = StringField('MRP',validators = [DataRequired()])
 	stock = StringField('Stock',validators = [DataRequired()])
-	medicineType  = StringField('Type',validators = [DataRequired()])
+	medicineType  = SelectField('Type', choices = [('default','Type'),('1','tablet'),('2','capsule'),('3','tonic')] , validators = [DataRequired()])
 	dose = StringField('Dose',validators = [DataRequired()])
 	drugId = StringField('Drug Id',validators = [DataRequired()])
 	submit = SubmitField('Submit')

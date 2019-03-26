@@ -280,19 +280,14 @@
           <div class="form-group mb-0">
             <div class="input-group input-group-alternative">
               <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                {{ form.searchFor( style = "color:black;" , placeholder = "search" , class = "input-group-text fas fa-search") }}
               </div>
-              <input class="form-control" placeholder="Search" id = "searchFor" type="text">
             </div>
              <div class="col-sm-2">
-              <select class="form-control selcls" id="classBy">
-                <option style="color:black;">Generic name</option>
-                <option style="color:black;">Product name</option>
-                <option style="color:black;">Supplier</option>
-              </select>          
+              {{ form.select(class="form-control selcls -secondary" , style = "color:black;") }}
             </div>
           </div>
-        <button type="button" class="btn btn-dark">Search</button>
+          {{ form.submit(class="btn btn-dark") }}
         </form>
         {% endif %}
       
@@ -457,11 +452,12 @@
   
   <!-- Argon Scripts -->
   <!-- Core -->
+
+  <script src="../static/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script> 
   <script src="../static/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../static/vendor/jquery/dist/jquery.min.js"></script>
   <!-- Argon JS --> 
   <script src="../static/js/argon.js?v=1.0.0"></script> 
-
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
