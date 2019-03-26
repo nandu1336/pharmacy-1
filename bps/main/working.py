@@ -70,3 +70,11 @@ def newEntry():
 	else :
 		return redirect(url_for('Login.login'))
 
+
+@Dashboard.route('/sales-history' , methods = ['POST','GET'])
+def salesHistory():
+	form = NewEntry()
+	if 'user' in session :
+		return render_template('invoices.html' , form = form)
+	else :
+		return redirect(url_for('Login.login'))
