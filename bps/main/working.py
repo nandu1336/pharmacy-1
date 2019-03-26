@@ -69,3 +69,4 @@ def newEntry():
 		return render_template('newEntry.html' , form = form)
 	else :
 		return redirect(url_for('Login.login'))
+
