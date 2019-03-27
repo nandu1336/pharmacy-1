@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,flash,url_for,session,request
 from bps.dbase import connection,cursor
-from bps.forms import SearchBarForm,NewEntry
+from bps.forms import SearchBarForm,NewEntry,ChoseProducts
 import datetime
 
 Dashboard = Blueprint('Dashboard', __name__)
@@ -37,7 +37,7 @@ def stockInfo():
 
 @Dashboard.route('/new-sell' , methods = ['POST','GET'])
 def newSell():
-	form = SearchBarForm()
+	form = ChoseProducts()
 	if 'user' in session :
 		return render_template('sell.html' , form = form)
 	else :

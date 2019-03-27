@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField , Sele
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo,Length
 from wtforms.fields.html5 import DateField
 import datetime
+from bps.dbase import connection,cursor
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(),Email()])
@@ -41,4 +42,12 @@ class NewEntry(FlaskForm):
 	drugId = StringField('Drug Id',validators = [DataRequired()])
 	submit = SubmitField('Submit')
 
-
+class ChoseProducts(FlaskForm):
+	choices = []
+	cursor.execute("SELECT PRODUCT_NAME FROM drug")
+	queryResult = cursor.fetchall()
+	for result in queryResult:
+		choices.append(result)
+	choose = SelectField('choose' , choices = choices )
+	quantity = StringField('quantity' , validators = [DataRequired()])
+	submit = SubmitField('Add item')

@@ -19,7 +19,13 @@ port = 3306
 connection = db.connect(host,user,password,database,port)
 cursor = connection.cursor()
 
-
+choice = []
+cursor.execute("SELECT PRODUCT_NAME FROM drug")
+output = cursor.fetchall()
+for everyInput in output:
+	choice.append(everyInput[0])
+for i in choice:
+	print(i)
 # query using parameterized arguments to the execute function 
 
 # keyword = "SOMExyz"
@@ -32,31 +38,31 @@ cursor = connection.cursor()
 # 	print("\n")
 
 
-productName = "lopermide hydrochloride"
-genericName = "L-par"
-supplier = "nandu"
-receivedDate = "2019-03-26"
-expiryDate = "2021-03-06"
-costPrice = "20"
-MRP = "30"
-stock = "250"
-medicineType = "1"
-dose = "2"
-drugId = "l-par2"
+# productName = "lopermide hydrochloride"
+# genericName = "L-par"
+# supplier = "nandu"
+# receivedDate = "2019-03-26"
+# expiryDate = "2021-03-06"
+# costPrice = "20"
+# MRP = "30"
+# stock = "250"
+# medicineType = "1"
+# dose = "2"
+# drugId = "l-par2"
 
 # query = "INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(productName,genericName,supplier,receivedDate,expiryDate,costPrice,\
 # MRP,stock,medicineType,dose,drugId)
 
-if cursor.execute("INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(productName,genericName,supplier,receivedDate,expiryDate,costPrice,MRP,stock,medicineType,dose,drugId)):
-	connection.commit()
-	print("successfully iserted and changes are reflected in the database:")
-	var = input("press Y to see the drug table:")
-	if var =='y'or var == 'Y':
-		cursor.execute("SELECT * FROM drug;")
-		results = cursor.fetchall()
-		for result in results:
-			print(result)
-			print("\n")
+# if cursor.execute("INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(productName,genericName,supplier,receivedDate,expiryDate,costPrice,MRP,stock,medicineType,dose,drugId)):
+# 	connection.commit()
+# 	print("successfully iserted and changes are reflected in the database:")
+# 	var = input("press Y to see the drug table:")
+# 	if var =='y'or var == 'Y':
+# 		cursor.execute("SELECT * FROM drug;")
+# 		results = cursor.fetchall()
+# 		for result in results:
+# 			print(result)
+			# print("\n")
 
 # string = input("enter you employId:")
 # print("press space to continue")
