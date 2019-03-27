@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,flash,url_for,session,request
 from bps.dbase import connection,cursor
-from bps.forms import SearchBarForm,NewEntry,ChoseProducts
+from bps.forms import SearchBarForm,NewEntry,ChoseProducts,QuerySales
 import datetime
 
 Dashboard = Blueprint('Dashboard', __name__)
@@ -81,9 +81,24 @@ def newEntry():
 
 @Dashboard.route('/sales-history' , methods = ['POST','GET'])
 def salesHistory():
-	form = NewEntry()
+	form = QuerySales()
 	if 'user' in session :
+		if request.method == 'POST' and form.validate_on_submit():
+			StartDate = request.form['startDate']
+			EndDate = request.form['endDate']
+			cursor.execute("SELECT * FROM supplier where SALE_DATE>=StartDate AND SALE_DATE<=EndDate")
+			result = cursor.fetchall()
+			return render_template('invoices.html' , form = form, result=result)
 		return render_template('invoices.html' , form = form)
+	else :
+		return redirect(url_for('Login.login'))
+
+@Dashboard.route('/suppliers-info' , methods = ['POST','GET'])
+def suppliersInfo():
+	if 'user' in session :
+		cursor.execute("SELECT * FROM supplier")
+		suppliersInfo = cursor.fetchall()
+		return render_template('suppliers.html', result=suppliersInfo)
 	else :
 		return redirect(url_for('Login.login'))
 # changed nothing but added something

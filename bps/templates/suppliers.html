@@ -9,50 +9,59 @@
 
 <body>
   
-  <div class="container-fluid mt--7">
-    <div class="row">
+
+
+
+
+
+
+    <!-- Page content -->
+    
+      <!-- <form style=" text-align: center;">
+              <input type="search" placeholder="Search">
+              <button type="button" class="btn btn-dark">Search</button><br>
+              <label style="color:white;">
+                <input type="radio" name="optradio" checked>By product name
+              </label><br>
+              <label style="color:white;">
+                <input type="radio" name="optradio">By generic name
+              </label><br>
+              <label style="color:white;">
+                <input  type="radio" name="optradio">By supplier name
+              </label>
+           </form> -->
+  
+      <!-- Table -->
+      <div class="container-fluid mt--7">
+      <div class="row">
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <form role="form" method = "POST">
-                {{ form.hidden_tag() }}
-                <div class="row justify-content-center">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      {{ form.startDate(placeholder = "Start Date", class = "form-control 
-                      datepicker ni ni-calendar-grid-58") }}
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      {{ form.endDate(placeholder = "End Date", class = "form-control 
-                      datepicker ni ni-calendar-grid-58") }}
-                    </div>
-                  </div>
-                </div>
-              </form>
+              <h3 class="mb-0">Suppliers Info.</h3>
+            </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Generic Name</th>
-                    <th scope="col">MRP</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Amount</th>
+                    <th scope="col">Supplier Id</th>
+                    <th scope="col">Supplier name</th>
+                    <th scope="col">Referenced By</th>
+                    <th scope="col">Contact Number</th>
+                    <th scope="col">Join Date</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for row in result%}
                     <tr>
-                      {% for i in range(0,12) %}
+                      {% for i in range(0,5) %}
                         <td>
                           {{ row[i] }}
+                        </td>
                       {% endfor %}
-                         <i data-toggle="modal" data-target="#deleteEntry"class="ni ni-scissors text-red btn btn-outline-light"></i>
-                      </td>
+                        <td>
+                          <i data-toggle="modal" data-target="#deleteEntry"class="ni ni-scissors text-red btn btn-outline-light"></i>
+                        </td>
                     </tr>
                   {% endfor %} 
                 </tbody>
@@ -106,19 +115,18 @@
                 </ul>
               </nav>
             </div>
-            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-              <div class="btn-group ml-2 mb-2" role="group" aria-label="First group">
-                <a href="{{ url_for('Dashboard.dashboard') }}" type="button" class="btn btn-success">Check Now</a>
+            <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group  mr-7" role="group"  aria-label="First group"  >
+                <div><a href="{{ url_for('Dashboard.newEntry') }}" class="btn btn-success" align="center">New Entry</a></div>
               </div>
-            </div>
-            </div>
+              <div class="btn-group ml-7" role="group"  aria-label="Third group" >
+                <div><a  class="btn btn-danger">Delete Entry</a></div>
+              </div>
+            </div> -->
           </div>
         </div>
-
       </div>
-  </div>
-
-
+    </div>
 
   
   
