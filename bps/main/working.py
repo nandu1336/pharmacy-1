@@ -86,3 +86,4 @@ def salesHistory():
 		return render_template('invoices.html' , form = form)
 	else :
 		return redirect(url_for('Login.login'))
+# changed nothing but added something
