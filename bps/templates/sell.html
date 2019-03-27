@@ -33,12 +33,13 @@
                       <input type="text" class="form-control" placeholder="Quantity">
                   </div>
                   <div class="col">
-                      <button type="button" class="btn btn-dark">Add item</button>
+                      <button type="button" class="btn btn-dark" onclick="addTuple();">Add item</button>
                   </div>
 
                 </div>
               </div>
             </form>
+            
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
@@ -53,16 +54,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for row in result%}
-                    <tr>
-                      {% for i in range(0,12) %}
-                        <td>
-                          {{ row[i] }}
-                      {% endfor %}
-                         <i data-toggle="modal" data-target="#deleteEntry"class="ni ni-scissors text-red btn btn-outline-light"></i>
-                      </td>
+                    <tr id="addItem">
+                    
                     </tr>
-                  {% endfor %} 
                 </tbody>
               </table>
             </div>
@@ -168,6 +162,15 @@
   <script src="./assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="./assets/js/argon.js?v=1.0.0"></script>
+  <script>
+                        function addTuple(){
+                          var added = "<td>1</td><td>{{ result[1] }}</td>"
+                          added=added+"<td>{{ result[2] }}</td><td>{{ result[7] }}</td>"
+                          added=added+"<td>{{ quantity }}</td><td>{{ amount }}</td>"
+                          added=added+"<td><i data-toggle='modal' data-target='#deleteEntry' class='ni ni-scissors text-red btn btn-outline-light'></i></td>"
+                          document.getElementById("addItem").innerHTML = added;
+                        }
+  </script>
   
 
 </body>
