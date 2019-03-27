@@ -86,7 +86,7 @@ def salesHistory():
 		if request.method == 'POST' and form.validate_on_submit():
 			StartDate = request.form['startDate']
 			EndDate = request.form['endDate']
-			cursor.execute("SELECT * FROM supplier where SALE_DATE>=StartDate AND SALE_DATE<=EndDate")
+			cursor.execute("SELECT * FROM sale_transaction where SALE_DATE>=%s AND SALE_DATE<=%s",(StartDate,EndDate))
 			result = cursor.fetchall()
 			return render_template('invoices.html' , form = form, result=result)
 		return render_template('invoices.html' , form = form)

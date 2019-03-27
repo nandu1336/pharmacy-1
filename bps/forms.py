@@ -56,3 +56,4 @@ class ChoseProducts(FlaskForm):
 class QuerySales(FlaskForm):
 	startDate = DateField('Start date', format = "%Y-%m-%d" , validators = [DataRequired()])
 	endDate = DateField('End date', format = "%Y-%m-%d" , validators = [DataRequired()])
+	submit = SubmitField('Search')
