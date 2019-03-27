@@ -39,12 +39,15 @@ def stockInfo():
 def newSell():
 	form = ChoseProducts()
 	if 'user' in session :
-		keyword = "Dolo 360"
-		cursor.execute("SELECT * FROM drug WHERE PRODUCT_NAME = %s",keyword)
-		result = cursor.fetchall()
-		quantity = 1
-		amount = 10
-		return render_template('sell.html' , form = form, result=result, quantity=quantity, amount=amount)
+		if request.method == 'PSOT':
+			keyword = request.form['search']
+			cursor.execute("SELECT * FROM drug WHERE PRODUCT_NAME LIKE %s%",keyword)
+			result = cursor.fetchall()
+			quantity = 1
+			amount = 10
+			return json.dumps({'status':'OK','user':user,'pass':password});
+			
+		return render_template('sell.html' , form = form )#, result = result , quantity = quantity , amount = amount )
 	else :
 		return redirect(url_for('Login.login'))
 @Dashboard.route('/new-entry' , methods = ['POST','GET'])

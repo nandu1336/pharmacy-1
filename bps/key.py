@@ -19,13 +19,21 @@ port = 3306
 connection = db.connect(host,user,password,database,port)
 cursor = connection.cursor()
 
-choice = []
-cursor.execute("SELECT PRODUCT_NAME FROM drug")
-output = cursor.fetchall()
-for everyInput in output:
-	choice.append(everyInput[0])
-for i in choice:
+keyword = "val"
+cursor.execute("SELECT * FROM drug WHERE PRODUCT_NAME LIKE %s%",keyword)
+result = cursor.fetchall()
+for i in result:
 	print(i)
+# choice = []
+# newArray = []
+# cursor.execute("SELECT PRODUCT_NAME FROM drug")
+# output = cursor.fetchall()
+# for everyInput in output:
+# 	choice.append(everyInput[0])
+# for i in choice:
+# 	result = "("+i+","+i+")"
+# 	newArray.append(result)
+# print(newArray)
 # query using parameterized arguments to the execute function 
 
 # keyword = "SOMExyz"

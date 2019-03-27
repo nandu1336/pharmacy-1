@@ -43,11 +43,12 @@ class NewEntry(FlaskForm):
 	submit = SubmitField('Submit')
 
 class ChoseProducts(FlaskForm):
-	choices = []
-	cursor.execute("SELECT PRODUCT_NAME FROM drug")
-	queryResult = cursor.fetchall()
-	for result in queryResult:
-		choices.append(result)
-	choose = SelectField('choose' , choices = choices )
+	# choices = []
+	# cursor.execute("SELECT PRODUCT_NAME FROM drug")
+	# queryResult = cursor.fetchall()
+	# for result in queryResult:
+	# 	choices.append(result)
+	# choose = SelectField('choose' , choices = choices )
+	search = StringField('product name' , validators = [DataRequired()])
 	quantity = StringField('quantity' , validators = [DataRequired()])
 	submit = SubmitField('Add item')
