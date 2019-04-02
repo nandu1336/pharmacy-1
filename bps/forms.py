@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField , SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField , SelectField , RadioField
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo,Length
 from wtforms.fields.html5 import DateField
 import datetime
@@ -8,7 +8,6 @@ from bps.dbase import connection,cursor
 class LoginForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(),Email()])
     password = PasswordField('Password', validators = [DataRequired()])
-    rememberMe = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
 class RegisterForm(FlaskForm):

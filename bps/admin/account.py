@@ -16,17 +16,12 @@ def login():
 	if request.method == 'POST' and form.validate_on_submit():
 		email = request.form['email']
 		password = request.form['password'] 
-		rememberMe = request.form['rememberMe']
 		cursor.execute("SELECT PASSWORD_HASH,FIRSTNAME FROM admin WHERE EMAIL = %s",email)
 		resultRows = cursor.fetchall()
 
 		if len(resultRows) == 1:
 			passwordHash = resultRows[0][0]
 			if check_password_hash(passwordHash, password) :
-				if rememberMe:
-					session.permanent = True
-				else :
-					session.permanent = False
 				session['user'] = resultRows[0][1]
 				return render_template("dashboard.html" , title = "Dashboard",session = session)
 			else :
