@@ -41,13 +41,21 @@ def newSell():
 	if 'user' in session :
 		if request.method == 'PSOT':
 			keyword = request.form['search']
-			cursor.execute("SELECT * FROM drug WHERE PRODUCT_NAME LIKE %s%",keyword)
-			result = cursor.fetchall()
-			quantity = 1
-			amount = 10
+			quantity = request.form['quantity']
+			cursor.execute("SELECT PRODUCT_NAME,GENERIC_NAME,MRP FROM drug WHERE PRODUCT_NAME LIKE %s",keyword)
+			productInfo = cursor.fetchall()
+			amount = productInfo[2]*quantity
+			if cursor.execute("INSERT INTO purchase VALUES (%s,%s,%s,%s,%s)",\
+				(productInfo[0],productInfo[1],productInfo[2],quantity,amount)):
+				connection.commit()
+				error =  "product details entered successfully"
+			else:
+				error = "could not enter product details."
+			cursor.execute("SELECT * FROM purchase")
+			salesInfo = cursor.fetchall()
 			return json.dumps({'status':'OK','user':user,'pass':password});
 			
-		return render_template('sell.html' , form = form )#, result = result , quantity = quantity , amount = amount )
+		return render_template('sell.html' , form = form , salesInfo = salesInfo, quantity = quantity , amount = amount )
 	else :
 		return redirect(url_for('Login.login'))
 @Dashboard.route('/new-entry' , methods = ['POST','GET'])
