@@ -39,12 +39,12 @@ def stockInfo():
 def newSell():
 	form = ChoseProducts()
 	if 'user' in session :
-		if request.method == 'PSOT':
+		if request.method == 'POST':
 			keyword = request.form['search']
 			quantity = request.form['quantity']
 			cursor.execute("SELECT PRODUCT_NAME,GENERIC_NAME,MRP FROM drug WHERE PRODUCT_NAME LIKE %s",keyword)
-			productInfo = cursor.fetchall()
-			amount = productInfo[2]*quantity
+			productInfo = cursor.fetchone()
+			amount = productInfo[0][2]*quantity
 			if cursor.execute("INSERT INTO purchase VALUES (%s,%s,%s,%s,%s)",\
 				(productInfo[0],productInfo[1],productInfo[2],quantity,amount)):
 				connection.commit()
@@ -53,9 +53,9 @@ def newSell():
 				error = "could not enter product details."
 			cursor.execute("SELECT * FROM purchase")
 			salesInfo = cursor.fetchall()
-			return json.dumps({'status':'OK','user':user,'pass':password});
+			return render_template('sell.html' , form = form , salesInfo = salesInfo)
 			
-		return render_template('sell.html' , form = form , salesInfo = salesInfo, quantity = quantity , amount = amount )
+		return render_template('sell.html' , form = form )
 	else :
 		return redirect(url_for('Login.login'))
 @Dashboard.route('/new-entry' , methods = ['POST','GET'])
