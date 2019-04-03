@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<body>
+	<div class="container-fluid mt--7">
+    	<div class="row">
+        	<div class="col">
+         	 	<div class="card shadow">
+          	 		<div class="card-header border-0">
+          	 			<div class="table-responsive">
+					        <table class="table align-items-center table-flush">
+					            <thead class="thead-light">
+					                <tr>
+						                <th scope="col">Product name</th>
+					                    <th scope="col">Generic name</th>
+					                    <th scope="col">Supplier</th>
+					                    <th scope="col">Date received</th>
+					                    <th scope="col">Expiry date</th>
+					                    <th scope="col">Net price</th>
+					                    <th scope="col">Mrp</th>
+					                    <th scope="col">Stock</th>
+					                    <th scope="col">Type</th>
+					                    <th scope="col">Dose</th>
+					                    <th scope="col">Drug Id</th>
+					                </tr>
+					            </thead>
+					            <tbody>
+					                {% for row in expiresDrugs %}
+					                <tr>
+					                    {% for i in range(0,12) %}
+					                    <td>
+					                    	{{ row[i] }}
+					                    </td>
+					                    {% endfor %}
+					                </tr>
+					                {% endfor %} 
+					            </tbody>
+				            </table>
+			            </div>
+          	  		</div>
+          		</div>
+          	</div>
+      	</div>
+  	</div>
+</body>
+
+{% endblock content %}

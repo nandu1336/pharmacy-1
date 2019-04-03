@@ -205,23 +205,28 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/icons.html">
+            <a class="nav-link" href="{{ url_for('Dashboard.newSell') }}">
               <i class="ni ni-money-coins text-blue"></i> New sell
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/maps.html">
+            <a class="nav-link" href="{{ url_for('Dashboard.stockInfo') }}">
               <i class="ni ni-basket text-orange"></i> Stock info
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/profile.html">
+            <a class="nav-link" href="{{ url_for('Dashboard.suppliersInfo') }}">
               <i class="ni ni-circle-08 text-yellow"></i> Suppliers
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/tables.html">
+            <a class="nav-link" href="{{ url_for('Dashboard.salesHistory') }}">
               <i class="ni ni-chart-bar-32 text-red"></i> Sales history
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('Dashboard.expiryInfo') }}">
+              <i class="ni ni-tag text-pink"></i> Expire info
             </a>
           </li>
       <!-- !!!!!!!!!!!!!!NOT NEEDED AS OF NOW!!!!!!!!!!!!!!!!

@@ -1,7 +1,7 @@
 from flask import Blueprint,render_template,redirect,flash,url_for,session,request
 from bps.dbase import connection,cursor
 from bps.forms import SearchBarForm,NewEntry,ChoseProducts,QuerySales,finishSale
-import datetime
+import datetime as dt
 
 Dashboard = Blueprint('Dashboard', __name__)
 
@@ -206,5 +206,27 @@ def confirmTransaction():
 			error = "Not enough stock in the inventory"
 			form = ChoseProducts()
 			return render_template("sell.html",title = 'Sell',requestFrom = "dashboard", error = error, form = form)
+	else :
+		return redirect(url_for('Login.login'))
+
+@Dashboard.route('/expiry-information' , methods = ['POST','GET'])
+def expiryInfo():
+	cursor = connection.cursor()
+	if 'user' in session :
+		cursor.execute("SELECT expiry_date,drug_Id FROM drug")
+		queryResults = cursor.fetchall()
+		expiresSoon = []
+		for everyRow in queryResults:
+			today =  dt.date.today()
+			daysLeft = str(everyRow[0]-today)
+			daysLeft = int(daysLeft.split(' ')[0])
+			if(daysLeft < 30):
+				expiresSoon.append(everyRow[1])
+		expiresDrugs = []
+		for everyRow in expiresSoon :
+			cursor.execute("SELECT * FROM drug WHERE DRUG_ID=%s",everyRow)
+			tempDrug = cursor.fetchone()
+			expiresDrugs.append(tempDrug)
+		return render_template("expiry.html", title = 'Expires soon',requestFrom = "dashboard", expiresDrugs = expiresDrugs)
 	else :
 		return redirect(url_for('Login.login'))
