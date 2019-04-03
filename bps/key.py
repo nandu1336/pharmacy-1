@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo
 from werkzeug.security import generate_password_hash,check_password_hash
 import pymysql as db
+import datetime as dt 
 
 host = "localhost"
 user = "Project"
@@ -18,12 +19,29 @@ port = 3306
 
 connection = db.connect(host,user,password,database,port)
 cursor = connection.cursor()
+cursor.execute("SELECT expiry_date,drug_Id  FROM drug")
+expiryDates = cursor.fetchall()
+expiresSoon = []
 
-keyword = "val"
-cursor.execute("SELECT * FROM drug WHERE PRODUCT_NAME LIKE %s%",keyword)
-result = cursor.fetchall()
-for i in result:
-	print(i)
+for expiryDate in expiryDates:
+		today =  dt.date.today()
+		daysLeft = str(expiryDate[0]-today)
+		daysLeft = int(daysLeft.split(' ')[0])
+		
+		print("time gap",daysLeft)
+
+		if(daysLeft < 30):
+			print("medicine expires in ",daysLeft,"days")
+			expiresSoon.append(expiryDate[1])
+
+expiresSoon = len(expiresSoon)
+if expiresSoon > 0 :
+	print("check alerts for more info.")
+# keyword = "val"
+# cursor.execute("SELECT * FROM drug WHERE PRODUCT_NAME LIKE %s%",keyword)
+# result = cursor.fetchall()
+# for i in result:
+# 	print(i)
 # choice = []
 # newArray = []
 # cursor.execute("SELECT PRODUCT_NAME FROM drug")

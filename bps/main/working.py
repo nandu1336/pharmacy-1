@@ -15,6 +15,7 @@ def dashboard():
 @Dashboard.route('/stock-Info' , methods = ['POST','GET'])
 def stockInfo():
 	form = SearchBarForm()
+	cursor = connection.cursor()
 	if 'user' in session :
 		if request.method == 'POST' :
 			keyword = request.form['searchFor']
@@ -27,16 +28,19 @@ def stockInfo():
 			elif(classBy == "EXPIRY_DATE"):
 				cursor.execute("SELECT * FROM drug WHERE EXPIRY_DATE >= %s",keyword)
 			productsInfo = cursor.fetchall()
-			return render_template('product.html' , form = form, result = productsInfo, title = 'Product')
+			cursor.close()
+			return render_template('product.html' , requestFrom = " dashboard" ,  form = form, result = productsInfo, title = 'Product')
 		else :
 			cursor.execute("SELECT * FROM drug;")
 			productsInfo = cursor.fetchall()
-			return render_template('product.html' , form = form , result = productsInfo, title = 'Product')
+			cursor.close()
+			return render_template('product.html' , requestFrom = " dashboard" , form = form , result = productsInfo, title = 'Product')
 	else :
 		return redirect(url_for('Login.login'))
 
 @Dashboard.route('/new-sell' , methods = ['POST','GET'])
 def newSell():
+	cursor = connection.cursor()
 	form = ChoseProducts()
 	if 'user' in session :
 		if request.method == 'POST':
@@ -44,7 +48,7 @@ def newSell():
 			quantity = request.form['quantity']
 			cursor.execute("SELECT PRODUCT_NAME,GENERIC_NAME,MRP FROM drug WHERE PRODUCT_NAME LIKE %s",keyword)
 			productInfo = cursor.fetchone()
-			amount = productInfo[0][2]*quantity
+			amount = float(productInfo[2])*float(quantity)
 			if cursor.execute("INSERT INTO purchase VALUES (%s,%s,%s,%s,%s)",\
 				(productInfo[0],productInfo[1],productInfo[2],quantity,amount)):
 				connection.commit()
@@ -53,9 +57,9 @@ def newSell():
 				error = "could not enter product details."
 			cursor.execute("SELECT * FROM purchase")
 			salesInfo = cursor.fetchall()
-			return render_template('sell.html' , form = form , salesInfo = salesInfo)
+			return render_template('sell.html' , form = form , requestFrom = " dashboard" , salesInfo = salesInfo)
 			
-		return render_template('sell.html' , form = form )
+		return render_template('sell.html' , requestFrom = " dashboard" , form = form )
 	else :
 		return redirect(url_for('Login.login'))
 @Dashboard.route('/new-entry' , methods = ['POST','GET'])
@@ -82,7 +86,7 @@ def newEntry():
 			else:
 				error = "could not enter product details."
 			return render_template('newEntry.html', form = form , error = error)
-		return render_template('newEntry.html' , form = form)
+		return render_template('newEntry.html' , requestFrom = " dashboard" , form = form)
 	else :
 		return redirect(url_for('Login.login'))
 
@@ -97,7 +101,7 @@ def salesHistory():
 			cursor.execute("SELECT * FROM sale_transaction where SALE_DATE>=%s AND SALE_DATE<=%s",(StartDate,EndDate))
 			result = cursor.fetchall()
 			return render_template('invoices.html' , form = form, result=result)
-		return render_template('invoices.html' , form = form)
+		return render_template('invoices.html' , requestFrom = " dashboard" , form = form)
 	else :
 		return redirect(url_for('Login.login'))
 
@@ -106,7 +110,7 @@ def suppliersInfo():
 	if 'user' in session :
 		cursor.execute("SELECT * FROM supplier")
 		suppliersInfo = cursor.fetchall()
-		return render_template('suppliers.html', result=suppliersInfo)
+		return render_template('suppliers.html', requestFrom = "dashboard" , result=suppliersInfo)
 	else :
 		return redirect(url_for('Login.login'))
 # changed nothing but added something

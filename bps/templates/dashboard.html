@@ -8,7 +8,11 @@
 
 
 <body>
-  
+{% if requestFrom == "account" %}
+	{% if expiresSoon > 0 %}
+	  <script> alert("some of your medicines are expirng soon.check alerts for further info.")</script>
+	{% endif %}
+{% endif %}
 
 
 

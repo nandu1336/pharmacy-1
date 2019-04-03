@@ -2,7 +2,8 @@ from flask import Blueprint,render_template,redirect,flash,url_for,session,reque
 from bps.forms import LoginForm,RegisterForm
 from werkzeug.security import generate_password_hash,check_password_hash
 from bps.dbase import connection,cursor
-import datetime
+import datetime as dt
+from bps.dbase import connection,cursor
 
 Login = Blueprint('Login', __name__)
 Register = Blueprint('Register',__name__)
@@ -23,14 +24,26 @@ def login():
 			passwordHash = resultRows[0][0]
 			if check_password_hash(passwordHash, password) :
 				session['user'] = resultRows[0][1]
-				return render_template("dashboard.html" , title = "Dashboard",session = session)
+				cursor.execute("SELECT expiry_date,drug_Id  FROM drug")
+				queryResults = cursor.fetchall()
+				expiresSoon = []
+
+				for everyRow in queryResults:
+					today =  dt.date.today()
+					daysLeft = str(everyRow[0]-today)
+					daysLeft = int(daysLeft.split(' ')[0])
+					if(daysLeft < 30):
+						expiresSoon.append(everyRow[1])
+					
+				expiresSoon = len(expiresSoon)
+				return render_template("dashboard.html" , requestFrom = "account" , title = "Dashboard" , session = session , expiresSoon = expiresSoon)
 			else :
 				error = "no user found with such details"
 		else:
 			error = "no user found with such details"
-		return render_template("login.html", title = "Login" , form = form , error = error)
+		return render_template("login.html", requestFrom = "account" , title = "Login" , form = form , error = error)
 
-	return render_template("login.html" , form = form , title = "Login" )
+	return render_template("login.html" , requestFrom = "account" , form = form , title = "Login" )
 
 
 # Register view
@@ -60,4 +73,4 @@ def register():
 				error="Passwords do not match"
 				return render_template("register.html",error=error)
 			return redirect(url_for('Dashboard.dashboard'))
-	return render_template("register.html",title = 'Register',form = form)
+	return render_template("register.html", requestFrom = "account" ,title = 'Register',form = form)

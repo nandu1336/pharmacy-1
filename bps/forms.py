@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField , SelectField , RadioField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField , SelectField , RadioField , FloatField
 from wtforms.validators import DataRequired,Email,InputRequired,EqualTo,Length
 from wtforms.fields.html5 import DateField
 import datetime
@@ -50,7 +50,7 @@ class ChoseProducts(FlaskForm):
 	# 	choices.append(result)
 	# choose = SelectField('choose' , choices = choices )
 	search = StringField('product name' , validators = [DataRequired()])
-	quantity = StringField('quantity' , validators = [DataRequired()])
+	quantity = FloatField('quantity' , validators = [DataRequired()])
 	submit = SubmitField('Add item')
 
 class QuerySales(FlaskForm):
