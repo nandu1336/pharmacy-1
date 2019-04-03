@@ -13,6 +13,9 @@
 	  <script> alert("some of your medicines are expirng soon.check alerts for further info.")</script>
 	{% endif %}
 {% endif %}
+{% if error != None %}
+    <script> alert(error)</script>
+{% endif %}
 
 
 

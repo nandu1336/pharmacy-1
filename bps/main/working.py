@@ -139,14 +139,58 @@ def confirmSale():
 		if purchaseInfo != None :
 			for i in range(len(purchaseInfo)):
 				totalAmount = totalAmount + purchaseInfo[i][4]
-		if request.method == 'POST' :
-			if request.form['cancel'] == "cancel" :
-				if cursor.execute("DELETE FROM purchase") :
-					connection.commit()
-				return render_template("dashboard.html", requestFrom = "dashboard", title = 'Dashboard')
-			else :
-				return render_template("confirmSale.html", requestFrom = "dashboard", title = 'Confirm Sale', purchaseInfo = purchaseInfo, totalAmount = totalAmount, form = form)
-
 		return render_template("confirmSale.html", requestFrom = "dashboard", title = 'Confirm Sale', purchaseInfo = purchaseInfo, totalAmount = totalAmount, form = form)
 	else:
+		return redirect(url_for('Login.login'))
+
+
+@Dashboard.route('/cancel-transaction' , methods = ['POST','GET'])
+def cancelTransaction():
+	cursor = connection.cursor()
+	if 'user' in session:
+		if cursor.execute("DELETE FROM PURCHASE") :
+			connection.commit()
+			error = "Purchase successfully Canceled"
+		return render_template("dashboard.html",title = 'Dashboard',requestFrom = "dashboard", error = error)
+	else:
+		return redirect(url_for('Login.login'))
+
+
+
+@Dashboard.route('/confirm-transaction' , methods = ['POST','GET'])
+def confirmTransaction():
+	cursor = connection.cursor()
+	if 'user' in session :
+		cursor.execute("SELECT * FROM purchase")
+		purchaseInfo = cursor.fetchall()
+		boolVal = 1
+		for row in purchaseInfo :
+			cursor.execute("SELECT * FROM drug where PRODUCT_NAME=%s",row[0])
+			drugX = cursor.fetchone()
+			if row[3] > drugX[7] : #If quantity of purchase is more than what we have in inventory
+				boolVal = 0
+		if boolVal == 1 :
+			cursor.execute("SELECT * FROM sale_transaction")
+			salesInfo = cursor.fetchall()
+			totalSales = len(salesInfo)
+			saleId = totalSales+1
+			if cursor.execute("INSERT INTO sale_transaction VALUES (%s,now(),%s)",\
+					(saleId,row[4])):
+				connection.commit()
+				error =  "Transaction successfully completed"
+			for row in purchaseInfo :
+				cursor.execute("SELECT * FROM drug where PRODUCT_NAME=%s",row[0])
+				drugX = cursor.fetchone()
+				remainingStock = drugX[7] - row[3]
+				if cursor.execute("UPDATE drug SET STOCK=%s WHERE PRODUCT_NAME=%s",(remainingStock,row[0])):
+					connection.commit()
+			if cursor.execute("DELETE FROM PURCHASE") :
+				connection.commit()
+			form = QuerySales()
+			return render_template("invoices.html",title = 'Invoices',requestFrom = "dashboard", error = error, form = form)
+		else :
+			error = "Not enough stock in the inventory"
+			form = ChoseProducts()
+			return render_template("sell.html",title = 'Sell',requestFrom = "dashboard", error = error, form = form)
+	else :
 		return redirect(url_for('Login.login'))

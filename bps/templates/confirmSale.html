@@ -45,10 +45,10 @@
            						   {{ form.hidden_tag() }}
 						            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
 						              <div class="btn-group ml-2 mb-2" role="group" aria-label="First group">
-						                {{ form.cancel(class="form-control btn btn-danger") }}
+						                <a href="{{ url_for('Dashboard.cancelTransaction') }}" type="button" class="form-control btn btn-danger">Cancel</a>
 						              </div>
 						              <div class="btn-group ml-2 mb-2" role="group" aria-label="First group">
-						                {{ form.confirm(class="form-control btn btn-success") }}
+						              	<a href="{{ url_for('Dashboard.confirmTransaction') }}" type="button" class="form-control btn btn-success">Confirm</a>
 						              </div>
 						            </div>
 						        </form>
