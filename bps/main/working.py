@@ -93,14 +93,14 @@ def newEntry():
 				drugId = request.form['drugId']
 				cursor.execute("SELECT supplier_id from supplier where company_name = %s",(supplier))
 				suppliers = cursor.fetchall()
-				if len(supplier) == 1 :
+				if len(supplier) > 0 :
 					if cursor.execute("INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",\
 					(productName,genericName,supplier,receivedDate,expiryDate,costPrice,MRP,stock,medicineType,dose,drugId)):
 						connection.commit()
 						error =  "product details entered successfully"
 					else:
 						error = "could not enter product details."
-						return render_template('newEntry.html', requestFrom = " dashboard" , form = form , error = error)
+					return render_template('newEntry.html', requestFrom = " dashboard" , form = form , error = error)
 				else:
 					error = "register the supplier before adding the new entry"	
 					return render_template('newEntry.html', requestFrom = " dashboard" , form = form , error = error)
