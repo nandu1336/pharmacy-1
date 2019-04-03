@@ -19,24 +19,47 @@ port = 3306
 
 connection = db.connect(host,user,password,database,port)
 cursor = connection.cursor()
-cursor.execute("SELECT expiry_date,drug_Id  FROM drug")
-expiryDates = cursor.fetchall()
-expiresSoon = []
+supplier = "nandu"
+cursor.execute("SELECT supplier_Id from supplier WHERE company_name= %s",(supplier))
+suppliers = cursor.fetchall()
+if len(suppliers) > 0:
+	print("fine")
+else:
+	print("no match found")
+# for everysupplier in suppliers:
+	print(everysupplier[0])
+# if supplier.length == 0:
+# 	print()
+# for everySupplier in suppliers:
+# 	for i in everySupplier:
+# 		if i != supplier:
+# 			noSupplierFound = True
+# 		else:
+# 			noSupplierFound = False
+# 			break
+# if noSupplierFound :
+# 	print("no supplier found with this name")
+# else:
+# 	print("supplier found")
+# print(noSupplierFound)
+# cursor.execute("SELECT expiry_date,drug_Id  FROM drug")
+# expiryDates = cursor.fetchall()
+# expiresSoon = []
 
-for expiryDate in expiryDates:
-		today =  dt.date.today()
-		daysLeft = str(expiryDate[0]-today)
-		daysLeft = int(daysLeft.split(' ')[0])
+# for expiryDate in expiryDates:
+# 		today =  dt.date.today()
+# 		daysLeft = str(expiryDate[0]-today)
+# 		daysLeft = int(daysLeft.split(' ')[0])
 		
-		print("time gap",daysLeft)
+# 		print("time gap",daysLeft)
 
-		if(daysLeft < 30):
-			print("medicine expires in ",daysLeft,"days")
-			expiresSoon.append(expiryDate[1])
+# 		if(daysLeft < 30):
+# 			print("medicine expires in ",daysLeft,"days")
+# 			expiresSoon.append(expiryDate[1])
 
-expiresSoon = len(expiresSoon)
-if expiresSoon > 0 :
-	print("check alerts for more info.")
+# expiresSoon = len(expiresSoon)
+# if expiresSoon > 0 :
+	# print("check alerts for more info.")
 # keyword = "val"
 # cursor.execute("SELECT * FROM drug WHERE PRODUCT_NAME LIKE %s%",keyword)
 # result = cursor.fetchall()
