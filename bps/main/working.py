@@ -236,3 +236,15 @@ def expiryInfo():
 		return render_template("expiry.html", title = 'Expires soon',requestFrom = "dashboard", expiresDrugs = expiresDrugs)
 	else :
 		return redirect(url_for('Login.login'))
+
+@Dashboard.route('/deleteRowInSell' , methods = ['POST'])
+def deleteRowInSell():
+	if 'user' in session:
+		if request.method == "POST":
+			keyword = request.form['productName']
+			cursor.execute("DELETE FROM purchase WHERE PRODUCT_NAME = %s",(keyword))
+			return redirect(url_for('Dashboard.newSell'))
+		else:
+			return redirect(url_for('Dashboard.newSell'))
+	else:
+		return redirect(url_for('Login.login'))
