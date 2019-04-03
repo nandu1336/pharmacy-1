@@ -1,12 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField , SelectField , RadioField , FloatField
-from wtforms.validators import DataRequired,Email,InputRequired,EqualTo,Length
-from wtforms.fields.html5 import DateField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField , SelectField , RadioField , FloatField , IntegerField
+from wtforms.validators import DataRequired,Email , InputRequired , EqualTo,Length , NumberRange
+from wtforms.fields.html5 import DateField , EmailField
 import datetime
 from bps.dbase import connection,cursor
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators = [DataRequired(),Email()])
+    email = EmailField('Email', validators = [DataRequired(),Email()])
     password = PasswordField('Password', validators = [DataRequired()])
     submit = SubmitField('Sign In')
     rememberMe = BooleanField('Remember Me')
@@ -14,7 +14,7 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
 	firstName = StringField('Firstname', validators = [DataRequired()]) 
 	lastName = StringField('Lastname', validators = [DataRequired()]) 
-	email = StringField('Email', validators = [DataRequired(),Email()])
+	email = EmailField('Email', validators = [DataRequired(),Email()])
 	employId = StringField('Employ Id', validators = [DataRequired()])
 	password = PasswordField('New Password', [InputRequired(), EqualTo('confirm', message='Passwords must match'), Length(min=8, message = 'Password should contain minimum eight characters')])
 	confirm  = PasswordField('Repeat Password', [InputRequired(),Length(min=8, message = 'Password should contain minimum eight characters')])
@@ -34,11 +34,11 @@ class NewEntry(FlaskForm):
 	supplier = StringField('Supplier',validators = [DataRequired()])
 	dateReceived = DateField('Date received', format = "%Y-%m-%d" , default = datetime.datetime.today , validators = [DataRequired()])
 	expiryDate = DateField('Expiry date', format = "%Y-%m-%d" , validators = [DataRequired()])
-	costPrice = StringField('Cost price',validators = [DataRequired()])
-	MRP = StringField('MRP',validators = [DataRequired()])
-	stock = StringField('Stock',validators = [DataRequired()])
-	medicineType  = SelectField('Type', choices = [('default','Type'),('1','capsule'),('2','tablet'),('3','tonic')] , validators = [DataRequired()])
-	dose = StringField('Dose',validators = [DataRequired()])
+	costPrice = FloatField('Cost price',validators = [DataRequired() , NumberRange(min=0, message='this field cannot be negative')])
+	MRP = FloatField('MRP',validators = [DataRequired() , NumberRange(min=0, message='this field cannot be negative')])
+	stock = IntegerField('Stock',validators = [DataRequired(), NumberRange(min=0, message='this field cannot be negative')])
+	medicineType  = SelectField('Type', choices = [('default','Type'),('1','capsule'),('2','tablet'),('3','tonic'),('4' , 'other')] , validators = [DataRequired()])
+	dose = IntegerField('Dose',validators = [DataRequired(), NumberRange(min=0, message='this field cannot be negative')])
 	drugId = StringField('Drug Id',validators = [DataRequired()])
 	submit = SubmitField('Submit')
 
@@ -50,7 +50,7 @@ class ChoseProducts(FlaskForm):
 	# 	choices.append(result)
 	# choose = SelectField('choose' , choices = choices )
 	search = StringField('product name' , validators = [DataRequired()])
-	quantity = FloatField('quantity' , validators = [DataRequired()])
+	quantity = IntegerField('quantity' , validators = [DataRequired(), NumberRange(min=0, message='this field cannot be negative')])
 	submit = SubmitField('Add item')
 
 class QuerySales(FlaskForm):
