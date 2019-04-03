@@ -248,3 +248,15 @@ def deleteRowInSell():
 			return redirect(url_for('Dashboard.newSell'))
 	else:
 		return redirect(url_for('Login.login'))
+
+@Dashboard.route('/deleteSupplier' , methods =['POST'])
+def deleteSupplier():
+	if 'user' in session:
+		if request.method == "POST":
+			keyword = request.form['supplierId']
+			cursor.execute("DELETE FROM supplier WHERE supplier_id = %s",(keyword))
+			return redirect(url_for('Dashboard.suppliersInfo'))
+		else:
+			return redirect(url_for('Dashboard.suppliersInfo'))
+	else:
+		return redirect(url_for('Login.login'))

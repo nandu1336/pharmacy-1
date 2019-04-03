@@ -60,7 +60,11 @@
                         </td>
                       {% endfor %}
                         <td>
-                          <i data-toggle="modal" data-target="#deleteEntry"class="ni ni-scissors text-red btn btn-outline-light"></i>
+                          <form action="{{ url_for('Dashboard.deleteSupplier') }}" method="POST">
+                            <input type="text" name="supplierId" value="{{ row[0] }}" style="display: none">
+                            <button type="submit" data-target="#deleteEntry"class="ni ni-scissors text-red btn btn-outline-light"></button>
+                            <!-- <i data-toggle="modal" data-target="#deleteEntry"class="ni ni-scissors text-red btn btn-outline-light"></i> -->
+                          </form>
                         </td>
                     </tr>
                   {% endfor %} 
