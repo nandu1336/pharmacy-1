@@ -43,23 +43,35 @@ def newSell():
 	cursor = connection.cursor()
 	form = ChoseProducts()
 	if 'user' in session :
+		cursor.execute("SELECT * FROM purchase")
+		salesInfo = cursor.fetchall()
 		if request.method == 'POST':
 			keyword = request.form['search']
 			quantity = request.form['quantity']
 			cursor.execute("SELECT PRODUCT_NAME,GENERIC_NAME,MRP FROM drug WHERE PRODUCT_NAME LIKE %s",keyword)
 			productInfo = cursor.fetchone()
-			amount = float(productInfo[2])*float(quantity)
-			if cursor.execute("INSERT INTO purchase VALUES (%s,%s,%s,%s,%s)",\
-				(productInfo[0],productInfo[1],productInfo[2],quantity,amount)):
-				connection.commit()
-				error =  "product details entered successfully"
-			else:
-				error = "could not enter product details."
-			cursor.execute("SELECT * FROM purchase")
-			salesInfo = cursor.fetchall()
-			return render_template('sell.html' , form = form , requestFrom = " dashboard" , salesInfo = salesInfo)
-			
-		return render_template('sell.html' , requestFrom = " dashboard" , form = form )
+			if productInfo != None :
+				cursor.execute("SELECT PRODUCT_NAME FROM purchase WHERE PRODUCT_NAME LIKE %s",keyword)
+				alreadyPresent = cursor.fetchone()
+				if alreadyPresent == None :
+					amount = float(productInfo[2])*float(quantity)
+					if cursor.execute("INSERT INTO purchase VALUES (%s,%s,%s,%s,%s)",\
+						(productInfo[0],productInfo[1],productInfo[2],quantity,amount)):
+						connection.commit()
+						error =  "product details entered successfully"
+					else:
+						error = "could not enter product details."
+					cursor.execute("SELECT * FROM purchase")
+					salesInfo = cursor.fetchall()
+					return render_template('sell.html' , form = form , requestFrom = " dashboard" , salesInfo = salesInfo)
+				else :
+					error = "The medicine already exists in the list."
+					return render_template('sell.html' , form = form , requestFrom = " dashboard", error=error, salesInfo=salesInfo)
+			else :
+				error = "The medicine does not exist."
+				return render_template('sell.html' , form = form , requestFrom = " dashboard", error=error, salesInfo=salesInfo)
+		
+		return render_template('sell.html' , requestFrom = " dashboard" , form = form, salesInfo=salesInfo)
 	else :
 		return redirect(url_for('Login.login'))
 @Dashboard.route('/new-entry' , methods = ['POST','GET'])

@@ -8,7 +8,9 @@
 
 
 <body>
-  
+  {% if error != None %}
+    <script> alert(error)</script>
+  {% endif %}
   <div class="container-fluid mt--7">
     <div class="row">
         <div class="col">
@@ -56,9 +58,11 @@
                       {% for i in range(0,5) %}
                         <td>
                           {{ row[i] }}
-                      {% endfor %}
-                         <!-- <i data-toggle="modal" data-target="#deleteEntry" class="ni ni-scissors text-red btn btn-outline-light"></i> -->
-                      </td>
+                        </td>
+                        {% endfor %}
+                        <td>
+                         <i data-toggle="modal" data-target="#deleteEntry" class="ni ni-scissors text-red btn btn-outline-light"></i>
+                        </td>
                     </tr>
                   {% endfor %} 
                 </tbody>
