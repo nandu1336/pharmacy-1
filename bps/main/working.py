@@ -126,3 +126,11 @@ def suppliersInfo():
 	else :
 		return redirect(url_for('Login.login'))
 # changed nothing but added something
+
+# NEW SELL ---> CHECK NOW ---> CONFIRM
+@Dashboard.route('/confirm-sale' , methods = ['POST','GET'])
+def confirmSale():
+	if 'user' in session:
+		return render_template("confirmSale.html",title = 'Confirm Sale')
+	else:
+		return redirect(url_for('Login.login'))
