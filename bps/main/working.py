@@ -78,26 +78,30 @@ def newSell():
 def newEntry():
 	form = NewEntry()
 	if 'user' in session :
-		if request.method == 'POST' and form.validate_on_submit():
-			productName = request.form['productName']
-			genericName = request.form['genericName']
-			supplier = request.form['supplier']
-			receivedDate = request.form['dateReceived']
-			expiryDate = request.form['expiryDate']
-			costPrice = request.form['costPrice']
-			MRP = request.form['MRP']
-			stock = request.form['stock']
-			medicineType = request.form['medicineType']
-			dose = request.form['dose']
-			drugId = request.form['drugId']
+		if request.method == 'POST' :
+			if form.validate_on_submit():
+				productName = request.form['productName']
+				genericName = request.form['genericName']
+				supplier = request.form['supplier']
+				receivedDate = request.form['dateReceived']
+				expiryDate = request.form['expiryDate']
+				costPrice = request.form['costPrice']
+				MRP = request.form['MRP']
+				stock = request.form['stock']
+				medicineType = request.form['medicineType']
+				dose = request.form['dose']
+				drugId = request.form['drugId']
 
-			if cursor.execute("INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",\
-				(productName,genericName,supplier,receivedDate,expiryDate,costPrice,MRP,stock,medicineType,dose,drugId)):
-				connection.commit()
-				error =  "product details entered successfully"
+				if cursor.execute("INSERT INTO drug VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",\
+					(productName,genericName,supplier,receivedDate,expiryDate,costPrice,MRP,stock,medicineType,dose,drugId)):
+					connection.commit()
+					error =  "product details entered successfully"
+				else:
+					error = "could not enter product details."
+				return render_template('newEntry.html', requestFrom = " dashboard" , form = form , error = error)
 			else:
-				error = "could not enter product details."
-			return render_template('newEntry.html', form = form , error = error)
+				error = "entry failed due to incompatable input."
+				return render_template('newEntry.html', requestFrom = " dashboard" , form = form , error = error)
 		return render_template('newEntry.html' , requestFrom = " dashboard" , form = form)
 	else :
 		return redirect(url_for('Login.login'))
@@ -139,7 +143,7 @@ def confirmSale():
 		if purchaseInfo != None :
 			for i in range(len(purchaseInfo)):
 				totalAmount = totalAmount + purchaseInfo[i][4]
-<<<<<<< HEAD
+
 		if request.method == 'POST' :
 			if request.form['operation'] == "cancel" :
 				if cursor.execute("DELETE FROM purchase") :
@@ -148,8 +152,7 @@ def confirmSale():
 			else :
 				return render_template("confirmSale.html", requestFrom = "dashboard", title = 'Confirm Sale', purchaseInfo = purchaseInfo, totalAmount = totalAmount, form = form)
 
-=======
->>>>>>> 92d040a0860a06c3dd5df489f2488b1d80b9b908
+
 		return render_template("confirmSale.html", requestFrom = "dashboard", title = 'Confirm Sale', purchaseInfo = purchaseInfo, totalAmount = totalAmount, form = form)
 	else:
 		return redirect(url_for('Login.login'))
