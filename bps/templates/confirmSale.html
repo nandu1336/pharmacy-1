@@ -41,12 +41,18 @@
 					            </div>
 
 
-					            <form role="form" method = "POST" action="{{             url_for('Dashboard.confirmSale') }}">
+					            <form role="form" method = "POST" action="{{ url_for('Dashboard.confirmSale') }}">
+					            	<input type="text" name="operation" value="cancel">
            						   {{ form.hidden_tag() }}
 						            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
 						              <div class="btn-group ml-2 mb-2" role="group" aria-label="First group">
 						                {{ form.cancel(class="form-control btn btn-danger") }}
 						              </div>
+						            </div>
+						        </form>
+						        <form method="POST" action="{{ url_for('Dashboard.confirmSale')}}">
+						        	<input type="text" name="operation" value="confirm">
+           						   {{ form.hidden_tag() }}
 						              <div class="btn-group ml-2 mb-2" role="group" aria-label="First group">
 						                {{ form.confirm(class="form-control btn btn-success") }}
 						              </div>

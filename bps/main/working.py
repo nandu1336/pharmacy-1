@@ -140,7 +140,7 @@ def confirmSale():
 			for i in range(len(purchaseInfo)):
 				totalAmount = totalAmount + purchaseInfo[i][4]
 		if request.method == 'POST' :
-			if request.form['cancel'] == "cancel" :
+			if request.form['operation'] == "cancel" :
 				if cursor.execute("DELETE FROM purchase") :
 					connection.commit()
 				return render_template("dashboard.html", requestFrom = "dashboard", title = 'Dashboard')
