@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,redirect,flash,url_for,session,request
 from bps.dbase import connection,cursor
-from bps.forms import SearchBarForm,NewEntry,ChoseProducts,QuerySales
+from bps.forms import SearchBarForm,NewEntry,ChoseProducts,QuerySales,finishSale
 import datetime
 
 Dashboard = Blueprint('Dashboard', __name__)
@@ -130,7 +130,23 @@ def suppliersInfo():
 # NEW SELL ---> CHECK NOW ---> CONFIRM
 @Dashboard.route('/confirm-sale' , methods = ['POST','GET'])
 def confirmSale():
+	cursor = connection.cursor()
+	form = finishSale()
 	if 'user' in session:
-		return render_template("confirmSale.html",title = 'Confirm Sale')
+		cursor.execute("SELECT * FROM purchase")
+		purchaseInfo = cursor.fetchall()
+		totalAmount=0
+		if purchaseInfo != None :
+			for i in range(len(purchaseInfo)):
+				totalAmount = totalAmount + purchaseInfo[i][4]
+		if request.method == 'POST' :
+			if request.form['cancel'] == "cancel" :
+				if cursor.execute("DELETE FROM purchase") :
+					connection.commit()
+				return render_template("dashboard.html", requestFrom = "dashboard", title = 'Dashboard')
+			else :
+				return render_template("confirmSale.html", requestFrom = "dashboard", title = 'Confirm Sale', purchaseInfo = purchaseInfo, totalAmount = totalAmount, form = form)
+
+		return render_template("confirmSale.html", requestFrom = "dashboard", title = 'Confirm Sale', purchaseInfo = purchaseInfo, totalAmount = totalAmount, form = form)
 	else:
 		return redirect(url_for('Login.login'))
